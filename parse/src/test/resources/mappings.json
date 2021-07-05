@@ -1,0 +1,474 @@
+{
+  "version": "0.4.1",
+  "schemaVersion": "0.4.1",
+  "flows": [
+    {
+      "name": "vbak",
+      "type": "partitionedAvroSource",
+      "filePath": "abfs://prodimport@kanaridataexchange.dfs.core.windows.net/EA/supplychain/raw/EMEA/HEP/VBAP",
+      "srcCols": ["mandt", "vbeln", "auart", "erdat", "erzet", "vdatu", "vkorg", "vkgrp", "vtweg", "zzhprecdt", "zz_dccode", "faksk", "lifsk", "autlf", "zzintgr_time", "netwr", "submi", "waerk", "abrvw", "bstnk", "bstdk", "vkbur", "augru", "zzhpquote", "audat", "ihrez", "zz_cdcode", "z1cleandate", "z1cleantime"],
+      "cols": ["client", "sapon", "ordertype", "ordercreateddt", "ordercreatetime", "rdd", "salesorganization", "salesgroup", "distributionchannel", "receiveddt", "dccode", "billingblockreasoncode", "deliveryblock", "compldelflag", "intgrtime", "netamountorder", "rtm", "currencyorder", "usage", "customerponumber", "customerpocreateddt", "salesoffice", "orc", "hpquote", "documentdt", "legacyordernum", "cdcode", "headercleaneddt", "headercleanedtime"],
+      "keyCols": ["client", "sapon"],
+      "srcTimestamp": "zlasttimestamp",
+      "timestamp": "vbak_timestamp",
+      "filter": "ordertype in ('ZOR', 'ZI1O', 'ZI2O', 'ZNC', 'ZPB')"
+    },
+    {
+      "name": "vbap",
+      "type": "partitionedAvroSource",
+      "filePath": "abfs://prodimport@kanaridataexchange.dfs.core.windows.net/EA/supplychain/raw/EMEA/HEP/VBAP",
+      "srcCols": ["mandt", "vbeln", "posnr", "abgru", "erdat", "erzet", "kwmeng", "pstyv", "vstel", "werks", "uepos", "grkor", "route", "matnr", "spart", "lprio", "netpr", "netwr", "waerk", "posex", "zzhrtitsi", "z1cleandate", "z1cleantime", "zzchpsup", "zz_ead", "zz_lad"],
+      "cols": ["client", "sapon", "sapitemnum", "rejectionreason", "itemcreateddt", "itemcreatetime", "orderedqty", "itemcategory", "shippingpoint", "plant", "hli", "deliverygroupsap", "route", "materialnum", "productline", "deliverypriority", "itemnetprice", "netamountitem", "currencyitem", "customerpoitemnumber", "legacyitemnum", "itemcleaneddt", "itemcleanedtime", "supplier", "ead", "lad"],
+      "keyCols": ["client", "sapon", "sapitemnum"],
+      "srcTimestamp": "zlasttimestamp",
+      "timestamp": "vbap_timestamp",
+      "filter": "plant in ('8O00', 'G100', 'G110', 'G111', 'G112', '01KA', 'B606', '0140', '6303', '0197')"
+    },
+    {
+      "name": "jcds",
+      "type": "partitionedAvroSource",
+      "filePath": "abfs://prodimport@kanaridataexchange.dfs.core.windows.net/EA/supplychain/raw/EMEA/HEP/JCDS",
+      "srcCols": ["mandt", "objnr", "stat", "chgnr", "udate", "utime", "inact", "usnam", "tcode"],
+      "cols": ["client", "objectnumber", "objectstatus", "objectchangenum", "objectdt", "objecttime", "objectinactive", "objectusername", "objecttransactioncode"],
+      "keyCols": ["client", "objectnumber", "objectstatus", "objectchangenum"],
+      "srcTimestamp": "zlasttimestamp",
+      "timestamp": "jcds_timestamp",
+      "filter": "objectstatus like 'E0%' AND objectnumber like 'VB%'"
+    },
+    {
+      "name": "tj30t",
+      "type": "partitionedAvroSource",
+      "filePath": "abfs://prodimport@kanaridataexchange.dfs.core.windows.net/EA/supplychain/raw/EMEA/HEP/TJ30T",
+      "srcCols": ["mandt", "stsma", "estat", "txt04", "txt30"],
+      "cols": ["client", "stsma", "objectstatus", "objectstatuscode", "objectstatusdescription"], 
+      "srcTimestamp": "zlasttimestamp",
+      "timestamp": "tj30t_timestamp"
+    },
+    {
+      "name": "jsto",
+      "type": "partitionedAvroSource",
+      "filePath": "abfs://prodimport@kanaridataexchange.dfs.core.windows.net/EA/supplychain/raw/EMEA/HEP/JSTO",
+      "srcCols": ["mandt", "objnr", "stsma"],
+      "cols": ["client", "objectnumber", "stsma"],
+      "srcTimestamp": "zlasttimestamp",
+      "timestamp": "jsto_timestamp",
+      "filter": "objectnumber like 'VB%'"
+    },
+    {
+      "name": "vbak_vbap",
+      "type": "join",
+      "source": ["vbak", "vbap"],
+      "cols": ["client", "sapon"],
+      "joinType": "inner"
+    },
+    {
+      "name": "od_serial",
+      "type": "withColumn",
+      "source": "vbak_vbap",
+      "col": "serial",
+      "expr": "greatest(vbak_timestamp, vbap_timestamp)"
+    },
+    {
+      "name": "order_details",
+      "type": "eventSink",
+      "source": "od_serial",
+      "prefetch": {
+        "from": "201908",
+        "to": "20200501"
+      },
+      "catchupIncrement": "1 day",
+      "recheckPause": "10 minutes",
+      "topic": "fusion_order_details"
+    }
+  ],
+  "templates": [
+    {
+      "name": "line_item",
+      "row": {
+        "name": "order_details",
+        "tableName": "order_details",
+        "namespace": "ea_sc_kif",
+        "colFamily": "o",
+        "rowKey": ["client", "sapon", "sapitemnum"],
+        "cols": [
+          {
+            "name": "client",
+            "value": "$.*.client",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "serial",
+            "value": "$.*.serial",
+            "colFamily": "o"
+          },
+          {
+            "name": "sapon",
+            "value": "$.*.sapon",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "ordertype",
+            "value": "$.*.ordertype",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "ordercreateddt",
+            "value": "$.*.ordercreateddt",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "ordercreatetime",
+            "value": "$.*.ordercreatetime",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "rdd",
+            "value": "$.*.rdd",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "salesorganization",
+            "value": "$.*.salesorganization",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "salesgroup",
+            "value": "$.*.salesgroup",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "distributionchannel",
+            "value": "$.*.distributionchannel",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "receiveddt",
+            "value": "$.*.receiveddt",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "dccode",
+            "value": "$.*.dccode",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "billingblockreasoncode",
+            "value": "$.*.billingblockreasoncode",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "deliveryblock",
+            "value": "$.*.deliveryblock",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "compldelflag",
+            "value": "$.*.compldelflag",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "intgrtime",
+            "value": "$.*.intgrtime",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "netamountorder",
+            "value": "$.*.netamountorder",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "rtm",
+            "value": "$.*.rtm",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "currencyorder",
+            "value": "$.*.currencyorder",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "usage",
+            "value": "$.*.usage",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "usagedescr",
+            "value": "$.*.usagedescr",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "orc",
+            "value": "$.*.orc",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "salesoffice",
+            "value": "$.*.salesoffice",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "documentdt",
+            "value": "$.*.documentdt",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "hpquote",
+            "value": "$.*.hpquote",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "dealid",
+            "value": "$.*.dealid",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "oppidorder",
+            "value": "$.*.oppidorder",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "deliverypriorityheader",
+            "value": "$.*.deliverypriorityheader",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "orcdescr",
+            "value": "$.*.orcdescr",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "deliveryblockdescr",
+            "value": "$.*.deliveryblockdescr",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "distributionchanneldescr",
+            "value": "$.*.distributionchanneldescr",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "customerponumber",
+            "value": "$.*.customerponumber",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "customerpocreateddt",
+            "value": "$.*.customerpocreateddt",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "customerpoitemnumber",
+            "value": "$.*.customerpoitemnumber",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "sapitemnum",
+            "value": "$.*.sapitemnum",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "rejectionreason",
+            "value": "$.*.rejectionreason",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "itemcreateddt",
+            "value": "$.*.itemcreateddt",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "itemcreatetime",
+            "value": "$.*.itemcreatetime",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "orderedqty",
+            "value": "$.*.orderedqty",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "itemcategory",
+            "value": "$.*.itemcategory",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "shippingpoint",
+            "value": "$.*.shippingpoint",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "plant",
+            "value": "$.*.plant",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "hli",
+            "value": "$.*.hli",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "deliverygroupsap",
+            "value": "$.*.deliverygroupsap",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "route",
+            "value": "$.*.route",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "routedescr",
+            "value": "$.*.routedescr",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "productdescr",
+            "value": "$.*.productdescr",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "materialnum",
+            "value": "$.*.materialnum",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "productline",
+            "value": "$.*.productline",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "deliverypriority",
+            "value": "$.*.deliverypriority",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "deliveryprioritydescr",
+            "value": "$.*.deliveryprioritydescr",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "itemnetprice",
+            "value": "$.*.itemnetprice",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "netamountitem",
+            "value": "$.*.netamountitem",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          { "name": "currencyitem",
+            "value": "$.*.currencyitem",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "reasoncode",
+            "value": "$.*.reasoncode",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "atpcheckflag",
+            "value": "$.*.atpcheckflag",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "multipledealid",
+            "value": "$.*.multipledealid",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name": "oppiditem",
+            "value": "$.*.oppiditem",
+            "isDedup": true,
+            "colFamily": "o"
+          },
+          {
+            "name":  "mapver",
+            "value": "'0.2.1'",
+            "colFamily": "o"
+          }
+        ]
+      }
+    }
+  ],
+  "sourceMap": [
+    {
+      "sourceName": "DESADV_SERP_SOURCE_MAP",
+      "when": "( topic == 'DESADV_SERP_hpit-ifsl' )",
+      "templates": ["delivery"],
+      "idockey": ["$.*.IDOC.EDI_DC40.DOCNUM"],
+      "sortkey": [
+        "$.*.IDOC.EDI_DC40.CREDAT",
+        "$.*.IDOC.EDI_DC40.CRETIM",
+        "$.*.IDOC.EDI_DC40.DOCNUM"
+      ],
+      "idkey": [
+        "$.*.IDOC.EDI_DC40.MANDT",
+        "$.*.IDOC.E1EDK01.BELNR",
+        "$.*.IDOC.EDI_DC40.SERIAL"
+      ]
+    },
+    {
+      "sourceName": "FUSION_ORDER_DETAILS",
+      "when": "( topic == 'fusion_order_details' )",
+      "templates": ["fusion_line_item"],
+      "idockey": ["$.*.client", "$.*.sapon", "$.*.sapitemnum"],
+      "sortkey": ["$.serial", "$.*.client", "$.*.sapon", "$.*.sapitemnum"]
+    }
+  ]
+}

@@ -1,0 +1,360 @@
+{
+    "hbase": {
+        "zookeeper.quorum": "10.0.0.9,10.0.0.5,10.0.0.4",
+        "zookeeper.client.port": 2181,
+        "distributed-mode": "true",
+        "scanner-caching": 1000
+    },
+    "hdfs-write": {
+        "hive_mapping": {
+            "DESADV_SERP_hpit-ifsl": "DESADV",
+            "INVOIC_SERP_hpit-ifsl": "INVOIC",
+            "PURSAG_GETDETAIL_SERP_hpit-ifsl": "PURSAG_GETDETAIL",
+            "SHPMNT_SERP_hpit-ifsl": "SHPMNT",
+            "MATMAS_SERP_hpit-ifsl": "MATMAS",
+            "IORDER_SERP_hpit-ifsl": "IORDER",
+            "CREMAS_SERP_hpit-ifsl": "CREMAS",
+            "Z_SHIPMENT_COST_SERP_hpit-ifsl": "Z_SHIPMENT_COST<U+200B>",
+            "ORDERS_SERP_hpit-ifsl": "ORDERS",
+            "ORDERS05_SERP_hpit-ifsl": "ORDERS05",
+            "ORDRSP_SERP_hpit-ifsl": "ORDRSP",
+            "ORDCHG_SERP_hpit-ifsl": "ORDCHG"
+        },
+        "hdfs-raw": "/orderbook/raw",
+        "save-mode": "txt",
+        "enabled": "false"
+    },
+    "kafka": {
+        "topics": [
+            "ORDRSP_SERP_hpit-ifsl",
+            "ORDERS05_SERP_hpit-ifsl",
+            "ORDERS_SERP_hpit-ifsl",
+            "INVOIC_SERP_hpit-ifsl",
+            "SHPMNT_SERP_hpit-ifsl",
+            "DESADV_SERP_hpit-ifsl",
+            "ORDCHG_SERP_hpit-ifsl"
+        ],
+        "group.id": "spark-executor-SERP-DataLake_hpit-ifsl_group",
+        "key.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+        "value.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+        "brokers": "10.0.0.9:6667,10.0.0.5:6667,10.0.0.4:6667",
+        "auto.offset.reset": "earliest",
+        "security.protocol": "PLAINTEXT",
+        "batchDuration": 15,
+        "windowLength": 10,
+        "slideInterval": 6,
+        "outputDelimiter": ",",
+        "checkpoint": "hdfs:///orderbook/checkpoints",
+        "enable.auto.commit": "false",
+        "session.timeout": "60000",
+        "heartbeat.interval": "6000"
+    },
+    "audit-log": {
+        "path": "/orderbook/logs",
+        "file-name-prefix": "audit"
+    },
+    "hdfs-log": {
+        "path": "/orderbook/logs",
+        "file-name-prefix": "log"
+    },
+    "message-mapper": {
+        "path": "/user/cloudbreak/ob-mappings.json"
+    },
+    "heart-beat": {
+        "path": "/orderbook/logs/feed_sc_kif_SUCCESS",
+        "interval-sec": 900
+    },
+    "ob-app": {
+        "enable-dedup": "true",
+        "dedup-colfamily": "d",
+        "dedup-colname": "dedup_hash",
+        "dedup-lookback": "1",
+        "max-batch-size": "100",
+        "default-storage-level": "MEMORY_AND_DISK_SER"
+    },
+
+    "ob_rules": {
+        "app-name": "ob_rules",
+        "app-type": "ob_rules",
+        "app": {
+            "log-level": "WARN"
+        },
+        "rule-test": {
+            "root-path": "abfs://bst-shares@kdpublic.dfs.core.windows.net/kanari/rules_test/",
+            "since": "2020-04-20T00:00:00"
+        },
+        "rules": {
+            "OrderObject": {
+                "mode": "files",
+                "files": [
+                    "/kanari/config/ob/rules/hpeRulesPart1.py",
+                    "/kanari/config/ob/rules/hpeRulesPart2.py",
+                    "/kanari/config/ob/rules/hpeRulesPart3.py"
+                ],
+                "dependency-path":"abfs://bst-shares@kdpublic.dfs.core.windows.net/kanari/rules_dev/dependencies/"
+            },
+            "DeliveryObject": {
+                "mode": "files",
+                "files": [
+                    "/kanari/config/ob/rules/hpeRulesDelivery.py"
+                ],
+                "dependency-path":"abfs://bst-shares@kdpublic.dfs.core.windows.net/kanari/rules_dev/dependencies/"
+            }
+        },
+        "rule-source": {
+            "mode": "files",
+            "files": [
+                "/kanari-config/rules/hpeRulesPart1.py",
+                "/kanari-config/rules/hpeRulesPart2.py",
+                "/kanari-config/rules/hpeRulesPart3.py"
+            ],
+            "dependency-path":"/kanari-user-storage/"
+        },
+        "rule-log": {
+            "path": "abfs://bst-shares@kdpublic.dfs.core.windows.net/dev/logs/"
+        },
+        "kafka": {
+            "topics": [
+                "ORDRSP_SERP_hpit-ifsl",
+                "ORDERS05_SERP_hpit-ifsl",
+                "ORDERS_SERP_hpit-ifsl",
+                "INVOIC_SERP_hpit-ifsl",
+                "SHPMNT_SERP_hpit-ifsl",
+                "DESADV_SERP_hpit-ifsl",
+                "ORDCHG_SERP_hpit-ifsl"
+            ],
+            "group.id": "spark-executor-SERP-DataLake_hpit-ifsl_group",
+            "key.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "value.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "brokers": "10.0.0.7:6667,10.0.0.8:6667,10.0.0.9:6667",
+            "auto.offset.reset": "earliest",
+            "security.protocol": "PLAINTEXT",
+            "batchDuration": 15,
+            "windowLength": 10,
+            "slideInterval": 6,
+            "outputDelimiter": ",",
+            "checkpoint": "hdfs:///orderbook/checkpoints",
+            "enable.auto.commit": "false",
+            "session.timeout": "60000",
+            "heartbeat.interval": "6000"
+        },
+        "heart-beat": {
+            "path": "/orderbook/logs/feed_sc_kif_SUCCESS",
+            "interval-sec": 900
+        },
+        "audit-log": {
+            "path": "/orderbook/logs",
+            "filename-prefix": "audit"
+        },
+        "hdfs-log": {
+            "path": "/orderbook/logs",
+            "filename-prefix": "log"
+        },
+        "hbase": {
+            "zookeeper.quorum": "10.0.0.4,10.0.0.7,10.0.0.8,10.0.0.9",
+            "zookeeper.client.port": 2181,
+            "distributed-mode": "true",
+            "scanner-caching": 1000
+        },
+        "graphite": {
+            "host": "10.0.0.4",
+            "port": "2003"
+        },
+        "validation-mapper": {
+            "path": "validationMap.json"
+        },
+        "message-mapper": {
+            "path": "/kanari-config/ob-mappings-dev.json"
+        }
+    },
+
+    "logistics_shipmentdetails":{
+        "app-name": "logistics_shipmentdetails",
+        "app-type": "eventhub_streaming",
+        "eventhub":{
+            "endpoint": "Endpoint=sb://hpecollabdevhub.servicebus.windows.net/;SharedAccessKeyName=hpeCollabDevHubAccess-incoming;SharedAccessKey=/enjwe/b4Kk7JflBD7PrIjVaf/X+ITv1fWy/k94G8HY=",
+            "name": "hpecollabdevhub-shipmentdetails",
+            "consumer-group": "hpecollabdevhubcg-bstdev1",
+            "topics": [
+                "shipmentDetails"
+            ],
+            "auto-offset-reset": "smallest",
+            "store-offsets-path": "/logistics/shipmentdetails/offsets",
+            "max-offset-files": "10",
+            "max-offset-history-files": "100",
+            "sort-data-by": "$.header.timestamp",
+            "max-rate-per-partition": "10",
+            "topic-json-path": "$.header.category",
+            "receiver-timeout": "120",
+            "operation-timeout": "120"
+        },
+        "spark": {
+            "batchDuration": "30"
+        },
+        "audit-log": {
+            "path": "/logistics/shipmentdetails/logs",
+            "filename-prefix": "audit"
+        },
+        "store-raw": {
+            "enabled": "true",
+            "path": "/logistics/raw",
+            "format": "txt"
+        },
+        "store-raw-mapping": {
+            "shipmentDetails": "shipmentdetails"
+        },
+        "app": {
+            "enable-dedup": "true",
+            "dedup-colfamily": "d",
+            "dedup-colname": "dedup_hash",
+            "dedup-lookback": "2",
+            "max-batch-size": "10000",
+            "default-storage-level": "MEMORY_AND_DISK_SER"
+        },
+        "hbase": {
+            "zookeeper.quorum": "10.0.0.9,10.0.0.5,10.0.0.6",
+            "zookeeper.client.port": "2181",
+            "kerberos.principal": "N/A",
+            "kerberos.keytab": "N/A",
+            "distributed-mode": "true",
+            "scanner-caching": "1000"
+        },
+        "message-mapper": {
+            "path": "/user/cloudbreak/log-map.json"
+        }
+    },
+    "logistics_shipmentstatus":{
+        "app-name": "logistics_shipmentstatus",
+        "app-type": "eventhub_streaming",
+        "eventhub":{
+            "endpoint": "Endpoint=sb://hpecollabdevhub.servicebus.windows.net/;SharedAccessKeyName=hpeCollabDevHubAccess-incoming;SharedAccessKey=5MaQ/EXVkyRbRJgexCSPRa3aWM7TMfOsfzxUwYDPTmg=",
+            "consumer-group": "hpecollabdevhubcg-bstdev1",
+            "name": "hpecollabdevhub-shipmentstatus",
+            "topics": [
+                "shipmentTracking",
+                "shipmentStatus"
+            ],
+            "auto-offset-reset": "smallest",
+            "store-offsets-path": "/logistics/shipmentstatus/offsets",
+            "max-offset-files": "10",
+            "max-offset-history-files": "100",
+            "sort-data-by": "$.header.timestamp",
+            "max-rate-per-partition": "10",
+            "topic-json-path": "$.header.category",
+            "receiver-timeout": "120",
+            "operation-timeout": "120"
+        },
+        "spark": {
+            "batchDuration": "30"
+        },
+        "audit-log": {
+            "path": "/logistics/shipmentstatus/logs",
+            "filename-prefix": "audit"
+        },
+        "store-raw": {
+            "enabled": "true",
+            "path": "/logistics/raw",
+            "format": "txt"
+        },
+        "store-raw-mapping": {
+            "shipmentTracking": "shipmentstatus",
+            "shipmentStatus": "shipmentstatus"
+        },
+        "app": {
+            "enable-dedup": "true",
+            "dedup-colfamily": "d",
+            "dedup-colname": "dedup_hash",
+            "dedup-lookback": "1",
+            "max-batch-size": "10000",
+            "default-storage-level": "MEMORY_AND_DISK_SER"
+        },
+        "hbase": {
+            "zookeeper.quorum": "10.0.0.9,10.0.0.5,10.0.0.6",
+            "zookeeper.client.port": "2181",
+            "kerberos.principal": "N/A",
+            "kerberos.keytab": "N/A",
+            "distributed-mode": "true",
+            "scanner-caching": "1000"
+        },
+        "message-mapper": {
+            "path": "/user/cloudbreak/log-map.json"
+        },
+        "heart-beat": {
+            "path": "/logistics/shipmentstatus/logs/feed_sc_kif_SUCCESS",
+            "interval-sec": "900"
+        }
+    },
+
+    "logistics_hdfs":{
+        "app-name": "logistics_hdfs",
+        "app-type": "hdfs_streaming",
+        "hdfs-streaming": {
+            "incoming": "/logistics/logistics_hdfs/incoming/",
+            "topics": [
+                "shipmentDetails",
+                "shipmentTracking",
+                "shipmentStatus"
+            ],
+            "since": "2019-08-25T00:00:00",
+            "files-batch-size": "100",
+            "files-modified-ago": "600",
+            "files-sort-data-by": "$.header.timestamp",
+            "topic-json-path": "$.header.category"
+        },
+        "spark": {
+            "batchDuration": "30",
+            "checkpoint": "hdfs:///logistics/logistics_hdfs/checkpoints"
+        },
+        "audit-log": {
+            "path": "/logistics/logistics_hdfs/logs",
+            "filename-prefix": "audit"
+        },
+        "hdfs-log": {
+            "path": "/logistics/logistics_hdfs/logs",
+            "filename-prefix": "log"
+        },
+        "store-raw": {
+            "enabled": "true",
+            "path": "/logistics/raw",
+            "format": "txt"
+        },
+        "store-raw-mapping": {
+            "shipmentDetails": "shipmentdetails",
+            "shipmentTracking": "shipmentstatus",
+            "shipmentStatus": "shipmentstatus"
+        },
+        "app": {
+            "enable-dedup": "true",
+            "dedup-colfamily": "d",
+            "dedup-colname": "dedup_hash",
+            "dedup-lookback": "1",
+            "max-batch-size": "10000",
+            "default-storage-level": "MEMORY_AND_DISK_SER"
+        },
+        "hbase": {
+            "zookeeper.quorum": "10.0.0.9,10.0.0.5,10.0.0.6",
+            "zookeeper.client.port": "2181",
+            "kerberos.principal": "N/A",
+            "kerberos.keytab": "N/A",
+            "distributed-mode": "true",
+            "scanner-caching": "1000"
+        },
+        "jdbc": {
+            "enabled": "true",
+            "driver": "com.microsoft.sqlserver.jdbc.SQLServerDriver",
+            "url": "jdbc:sqlserver://127.0.0.1:1433;",
+            "database": "kanari",
+            "username": "ktech",
+            "password": "funF00d!",
+            "table": "jsontest",
+            "batch-size": "3000"
+        },
+        "message-mapper": {
+            "path": "/user/cloudbreak/log-map.json"
+        },
+        "heart-beat": {
+            "path": "/logistics/shipmentdetails_hdfs/logs/feed_sc_kif_SUCCESS",
+            "interval-sec": "900"
+        }
+    }
+}

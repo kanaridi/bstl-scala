@@ -1,0 +1,89 @@
+{
+    "version": "0.4.1",
+    "description": "test sourceMap with no matches",
+    "name": "test when no match",
+    "templates": [
+        {
+            "name": "shipmentDetailsTwo",
+            "row": {
+                "colFamily": "fp",
+                "cols": [
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "headersourcetwo_",
+                        "value": "$.header.source"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "vendor2",
+                        "value": "$.data.vendor"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "shipperreferencenumbertwo_",
+                        "value": "$.data.lspTrackingId"
+                    }
+                ],
+                "name": "details_event",
+                "namespace": "test_logistics_bst",
+                "rowKey": ["shipperreferencenumbertwo_", "headersourcetwo_", "'two'"],
+                "tableName": "details_event"
+            }
+        },
+        {
+            "name": "shipmentDetails",
+            "row": {
+                "colFamily": "fp",
+                "cols": [
+                    {
+                        "colFamily": "fp",
+                        "isDedup": false,
+                        "name": "headersource_",
+                        "value": "$.header.source"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "vendor",
+                        "value": "$.data.vendor"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "shipperreferencenumber_",
+                        "value": "$.data.lspTrackingId"
+                    }
+                ],
+                "name": "details_event",
+                "namespace": "test_logistics_bst",
+                "rowKey": ["shipperreferencenumber_", "headersource_"],
+                "tableName": "details_event"
+            }
+        }
+    ],
+    "sourceMap": [
+        {
+            "templates": [
+                "shipmentDetails"
+            ],
+            "sourceName": "shipmentDetailsDhlDgf",
+            "when": "( ( topic == 'shipmentDetails' ) && ( ( $.header.version == '1.0' ) && ( $.header.source == 'non_existent_vendor' ) ) )",
+            "idockey": ["$.header.timestamp"],
+            "sortkey": ["$.header.timestamp", "$.header.category"]
+        },
+        {
+            "templates": [
+                "shipmentDetailsTwo"
+            ],
+            "sourceName": "shipmentDetailsDhlDgf2",
+            "when": "( ( topic == 'shipmentDetails' ) && ( ( $.header.version == '1.0' ) && ( $.header.source == 'non_existent_vendor' ) ) )",
+            "idockey": ["$.header.timestamp"],
+            "sortkey": ["$.header.timestamp", "$.header.category"]
+        }
+    ]
+}
+
+

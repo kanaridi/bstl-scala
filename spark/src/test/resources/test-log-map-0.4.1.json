@@ -1,0 +1,486 @@
+{
+    "version": "0.4.1",
+    "description": "Mappings for shipment details and shipment tracking (Test)",
+    "id": "09ecf172-823d-493e-bd83-cb86e41bc899",
+    "name": "Test logisticsMapping",
+    "templates": [
+        {
+            "name": "shipmentDetails",
+            "row": {
+                "colFamily": "fp",
+                "cols": [
+                    {
+                        "colFamily": "fp",
+                        "isDedup": false,
+                        "name": "headersource_",
+                        "value": "$.header.source"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": false,
+                        "name": "headercategory_",
+                        "value": "$.header.category"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": false,
+                        "name": "headerversion_",
+                        "value": "$.header.version"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": false,
+                        "name": "headerrequestid_",
+                        "value": "$.header.requestId"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": false,
+                        "name": "headertimestamp_",
+                        "value": "$.header.timestamp"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "bol_",
+                        "value": "$.data.bol"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "carrier_",
+                        "value": "$.data.carrier"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "consigneename_",
+                        "value": "$.data.consigneeName"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "consigneeaddress_",
+                        "value": "$.data.consigneeAddress"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "consigneecity_",
+                        "value": "$.data.consigneeCity"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "consigneecountry_",
+                        "value": "$.data.consigneeCountry"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "consigneestate_",
+                        "value": "$.data.consigneeState"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "consigneepostalcode_",
+                        "value": "$.data.consigneePostalCode"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "contents_",
+                        "value": "$.data.contents"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "containernbr_",
+                        "value": "if ( $.data.containerNbr[0] != '' ) then $.data.containerNbr[0]  else if ( $.data.containerNbr != '' ) then $.data.containerNbr  else ''"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "containerload_",
+                        "value": "$.data.containerLoad"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "currency_",
+                        "value": "$.data.currency"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "destinationairportcode_",
+                        "value": "$.data.destinationAirportCode"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "demensionalweight_",
+                        "value": "$.data.financialWeight"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "etdpointoforigin_",
+                        "value": "$.data.etdPointOfOrigin"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "etaportofdestination_",
+                        "value": "$.data.etaPortOfDestination"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "etafinaldestination_",
+                        "value": "$.data.etaFinalDestination"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "finaldestination_",
+                        "value": "$.data.finalDestination"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "hawb_",
+                        "value": "$.data.hawb"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "mawb_",
+                        "value": "$.data.mawb"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "invoicedate_",
+                        "value": "$.data.invoiceDate"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "invoicenumber_",
+                        "value": "$.data.invoiceNumber"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "invoicecountry_",
+                        "value": "$.data.invoiceCountry_"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "originairportcode_",
+                        "value": "$.data.originAirportCode"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "origincity_",
+                        "value": "$.data.originCity"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "palletqty_",
+                        "value": "$.data.palletQty"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "weight_",
+                        "value": "$.data.weight"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": false,
+                        "name": "projectId",
+                        "value": "$.data.projectId"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "servicelevel_",
+                        "value": "$.data.serviceLevel"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "servicetype_",
+                        "value": "$.data.serviceType"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "suppliername_",
+                        "value": "$.data.supplierName"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "supplieraddress_",
+                        "value": "$.data.supplierAddress"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "suppliercity_",
+                        "value": "$.data.supplierCity"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "suppliercountry_",
+                        "value": "$.data.supplierCountry"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "supplierstate_",
+                        "value": "$.data.supplierState"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "supplierpostalcode_",
+                        "value": "$.data.supplierPostalCode"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "hpeshipmentreference_",
+                        "value": "if ( $.data.shipmentReference[0] != '' ) then $.data.shipmentReference[0]  else if ( $.data.shipmentReference != '' ) then $.data.shipmentReference  else ''"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "totalcost_",
+                        "value": "$.data.totalCost"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "totalcostusd_",
+                        "value": "$.data.totalCostUsd_"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "shipmenttype_",
+                        "value": "$.data.shipmentType"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": false,
+                        "name": "qcteventremark_",
+                        "value": "$.data.qctEventRemark"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": false,
+                        "name": "hpepartnumber_",
+                        "value": "$.data.hpePartNumber"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": false,
+                        "name": "qtyshipped_",
+                        "value": "$.data.qtyShipped"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "elfclassifier_",
+                        "value": "if ( ( concat( toLower( $.data.vendor ) , concat( '-', $.data.projectId )) == 'expeditors-1') ||      ( ( concat( toLower( $.data.vendor ) , concat( '-', $.data.projectId )) == 'schenker-WWPAN8') ||        ( concat( toLower( $.data.vendor ) , concat( '-', $.data.projectId )) == 'nippon-true') )    ) then 'ELF' else 'Non-ELF'"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "shippingmode_",
+                        "value": "if ( toLower( $.data.shippingMode ) != '') then $.data.shippingMode else if ( toLower( $.data.vendor ) == 'upsair') then 'air' else if ( toLower( $.data.vendor ) == 'ups') then 'parcel' else if ( toLower( $.data.vendor ) == 'dhlgf') then 'air' else if ( toLower( $.data.vendor ) == 'dhlexpress') then 'parcel' else 'unknown'"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "shipperreferencenumber_",
+                        "value": "$.data.lspTrackingId"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "vendor",
+                        "value": "$.data.vendor"
+                    }
+                ],
+                "name": "details_event",
+                "namespace": "test_logistics_bst",
+                "rowKey": ["shipperreferencenumber_", "headersource_"],
+                "tableName": "details_event"
+            }
+        },
+        {
+            "name": "shipmentTracking",
+            "row": {
+                "colFamily": "fp",
+                "cols": [
+                    {
+                        "colFamily": "fp",
+                        "isDedup": false,
+                        "name": "headersource_",
+                        "value": "$.header.source"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": false,
+                        "name": "headercategory_",
+                        "value": "$.header.category"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": false,
+                        "name": "headerversion_",
+                        "value": "$.header.version"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": false,
+                        "name": "headerrequestid_",
+                        "value": "$.header.requestId"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": false,
+                        "name": "headertimestamp_",
+                        "value": "$.header.timestamp"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "vendor",
+                        "value": "$.header.source"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "lspTrackingId",
+                        "value": "$.data.lspTrackingId"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "carrierDelayStatusCode",
+                        "value": "$.data.carrierDelayStatusCode"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "eventDate",
+                        "value": "$.data.eventDate"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "eventdesc",
+                        "value": "$.data.eventDesc"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "eventtype",
+                        "value": "$.data.eventType"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "location",
+                        "value": "$.data.location"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "remark",
+                        "value": "$.data.remark"
+                    },
+                    {
+                        "colFamily": "fp",
+                        "isDedup": true,
+                        "name": "hpeeventtype",
+                        "value": "if (toLower( $.header.source ) == 'expeditors') then (   if (toUpper( $.data.eventType ) == 'VCB') then 'Booked'   else if (toUpper( $.data.eventType ) == 'CPU') then 'Booked'   else if (toUpper( $.data.eventType ) == 'PUO') then 'PickedUp'   else if (toUpper( $.data.eventType ) == 'FRD') then 'PickedUp'   else if (toUpper( $.data.eventType ) == 'FND') then 'PickedUp'   else if (toUpper( $.data.eventType ) == 'AGD') then 'ArrivedPortOfOrigin'   else if (toUpper( $.data.eventType ) == 'TSF') then 'ArrivedPortOfOrigin'   else if (toUpper( $.data.eventType ) == 'COB') then 'DepartedPortOfOrigin'   else if (toUpper( $.data.eventType ) == 'AFD') then 'ArrivedPortOfDestination'   else if (toUpper( $.data.eventType ) == 'CLR') then 'CustomsCleared'   else if (toUpper( $.data.eventType ) == 'RLS') then 'CustomsCleared'   else if (toUpper( $.data.eventType ) == 'OFD') then 'DepartedPortOfOrigin'   else if (toUpper( $.data.eventType ) == 'PUD') then 'DepartedPortOfOrigin'   else if (toUpper( $.data.eventType ) == 'DLV') then 'Delivered'   else if (toUpper( $.data.eventType ) == 'ADD') then 'Delivered'   else if (toUpper( $.data.eventType ) == 'ADU') then 'Delivered'   else if (toUpper( $.data.eventType ) == 'POD') then 'Delivered' else 'unknown' ) else if (toLower( $.header.source ) == 'nippon') then (   if (toUpper( $.data.eventType) == 'BLASGN') then 'Booked'   else if (toUpper( $.data.eventType ) == 'PUP' ) then 'PickedUp'   else if (toUpper( $.data.eventType ) == 'CONSL' ) then 'ArrivedPortOfOrigin'   else if (toUpper( $.data.eventType ) == 'SCD1' ) then 'DepartedPortOfOrigin'   else if (toUpper( $.data.eventType ) == 'ARV-L' ) then 'ArrivedPortOfDestination'   else if (toUpper( $.data.eventType ) == 'CCLR-I' ) then 'CustomsCleared'   else if (toUpper( $.data.eventType ) == 'WHOT-I' ) then 'DepartedPortOfOrigin'   else if (toUpper( $.data.eventType ) == 'POD' ) then 'Delivered' else 'unknown' ) else if (toLower( $.header.source ) == 'pegasus' ) then (   if (toUpper( $.data.eventType ) == 'NEW') then 'Booked'   else if (toUpper( $.data.eventType ) == 'PUP' ) then 'PickedUp'   else if (toUpper( $.data.eventType ) == 'INT' ) then 'DepartedPortOfOrigin'   else if (toUpper( $.data.eventType ) == 'ADA' ) then 'ArrivedPortOfDestination'   else if (toUpper( $.data.eventType ) == 'OFD' ) then 'DepartedPortOfOrigin'   else if (toUpper( $.data.eventType ) == 'SCH' ) then 'Delivery Appointment '   else if (toUpper( $.data.eventType ) == 'DEL' ) then 'Delivered' else 'unknown' ) else if (toLower( $.header.source ) == 'gw') then (   if (matches( toUpper( $.data.eventType ) , 'RCVD FROM PRIOR HP CONTRACT.*' )) then 'Booked'   else if (matches( toUpper( $.data.eventType ) , 'ARRIVAL AT HUB.*' )) then 'PickedUp'   else if (matches( toUpper( $.data.eventType ) , 'EN ROUTE TO DESTINATION.*' )) then 'DepartedPortOfOrigin'   else if (matches( toUpper( $.data.eventType ) , 'EN ROUTE TO DELIVERY LOCATION.*' )) then 'DepartedPortOfOrigin'   else if (matches( toUpper( $.data.eventType ) , 'CUSTOMER APPOINTMENT REQUEST.*')) then 'Delivery Appointment '   else if (matches( toUpper( $.data.eventType ) , 'FULLY DELIVERED TO CUSTOMER.*')) then 'Delivered'   else if (matches( toUpper( $.data.eventType ) , 'FULLY DEL\\. - DAMAGED.*' )) then 'Delivered'   else if (matches( toUpper( $.data.eventType ) , 'DELIVERED.*' )) then 'Delivered' else 'unknown' ) else if (toLower( $.header.source ) == 'panalpina') then (   if (toUpper( $.data.eventType) == 'AF' ) then 'PickedUp'   else if (toUpper( $.data.eventType ) == 'R1' ) then 'PickedUp'   else if (toUpper( $.data.eventType ) == 'PU' ) then 'PickedUp'   else if (toUpper( $.data.eventType ) == 'X40' ) then 'ArrivedPortOfOrigin'   else if (toUpper( $.data.eventType ) == 'P1' ) then 'DepartedPortOfOrigin'   else if (toUpper( $.data.eventType ) == 'X4D' ) then 'ArrivedPortOfDestination'   else if (toUpper( $.data.eventType ) == 'K1C' ) then 'CustomsCleared'   else if (toUpper( $.data.eventType ) == 'NS' ) then 'CustomsCleared'   else if (toUpper( $.data.eventType ) == 'X6' ) then 'DepartedPortOfOrigin'   else if (toUpper( $.data.eventType ) == 'D1' ) then 'Delivered'   else if (toUpper( $.data.eventType ) == 'J1' ) then 'Delivered' else 'unknown' ) else if (toLower( $.header.source ) == 'fedex') then (   if (toUpper( $.data.eventType) == 'OC' ) then 'Booked'   else if (toUpper( $.data.eventType) == 'OX' ) then 'Booked'   else if (toUpper( $.data.eventType) == 'PU' ) then 'PickedUp'   else if (toUpper( $.data.eventType) == 'PX' ) then 'PickedUp'   else if (toUpper( $.data.eventType) == 'OF' ) then 'ArrivedPortOfOrigin'   else if (toUpper( $.data.eventType) == 'CC' ) then 'CustomsCleared'   else if (toUpper( $.data.eventType) == 'OD' ) then 'DepartedPortOfOrigin'   else if (toUpper( $.data.eventType) == 'DL' ) then 'Delivered'   else if (toUpper( $.data.eventType) == 'D' ) then 'Delivered' else 'unknown' ) else if (toLower( $.header.source) == 'schenker' ) then (   if (toUpper( $.data.eventType) == 'CBK' ) then 'Booked'   else if (toUpper( $.data.eventType) == '20' ) then 'Booked'   else if (toUpper( $.data.eventType) == 'PUP' ) then 'PickedUp'   else if (toUpper( $.data.eventType) == '150' ) then 'PickedUp'   else if (toUpper( $.data.eventType) == 'REW' ) then 'ArrivedPortOfOrigin'   else if (toUpper( $.data.eventType) == 'DEP' ) then 'DepartedPortOfOrigin'   else if (toUpper( $.data.eventType) == 'RIH' ) then 'ArrivedPortOfDestination'   else if (toUpper( $.data.eventType) == 'CCD' ) then 'CustomsCleared'   else if (toUpper( $.data.eventType) == 'OFD' ) then 'DepartedPortOfOrigin'   else if (toUpper( $.data.eventType) == '850' ) then 'Delivery Appointment '   else if (toUpper( $.data.eventType) == 'DIH' ) then 'Delivered'   else if (toUpper( $.data.eventType) == '900' ) then 'Delivered'   else if (toUpper( $.data.eventType) == '901' ) then 'POD'   else if (toUpper( $.data.eventType) == 'POD' ) then 'POD' else 'unknown' ) else if (toLower( $.header.source) == 'dhlgf' ) then (   if (toUpper( $.data.eventType ) == 'SHIPMENT ENTERED INTO SYSTEM  (LOCAL)' ) then 'Booked'   else if (toUpper( $.data.eventType ) == 'ACTUAL PICKUP TIME  (LOCAL)' ) then 'PickedUp'   else if (toUpper( $.data.eventType ) == 'RECEIVED AT ORIGIN_ (LOCAL)' ) then 'ArrivedPortOfOrigin'   else if (toUpper( $.data.eventType ) == 'DEPARTED DHL STATION 1_ (LOCAL)') then 'DepartedPortOfOrigin'   else if (toUpper( $.data.eventType ) == 'ARRIVED FINAL DESTINATION  (LOCAL)') then 'ArrivedPortOfDestination'   else if (toUpper( $.data.eventType ) == 'IMPORT CUSTOMS ENTRY_ (LOCAL)') then 'CustomsCleared'   else if (toUpper( $.data.eventType ) == 'OUT FOR DELIVERY  (LOCAL)') then 'DepartedPortOfOrigin'   else if (toUpper( $.data.eventType ) == 'SHIPMENT DELIVERED  (LOCAL)') then 'Delivered' else 'unknown' ) else if (toLower( $.header.source ) == 'dhlexpress' ) then (   if (toUpper( $.data.eventType) == 'PU') then 'PickedUp'   else if (toUpper( $.data.eventType ) == 'AF' ) then 'ArrivedPortOfOrigin'   else if (toUpper( $.data.eventType ) == 'AR' ) then 'ArrivedPortOfDestination'   else if (toUpper( $.data.eventType ) == 'CR' ) then 'CustomsCleared'   else if (toUpper( $.data.eventType ) == 'WC' ) then 'DepartedPortOfOrigin'   else if (toUpper( $.data.eventType ) == 'OK' ) then 'Delivered'   else if (toUpper( $.data.eventType ) == 'BR' ) then 'Delivered'   else if (toUpper( $.data.eventType ) == 'DD' ) then 'Delivered' else 'unknown' ) else if (toLower( $.header.source ) == 'upsair' ) then (   if (toUpper( $.data.eventType ) == 'RECEIVED INTO UPS POSSESSION') then 'PickedUp'   else if (toUpper( $.data.eventType ) == 'CLEARED CUSTOMS') then 'CustomsCleared'   else if (toUpper( $.data.eventType ) == 'OUT FOR DELIVERY') then 'DepartedPortOfOrigin'   else if (toUpper( $.data.eventType ) == 'DELIVERED') then 'Delivered'   else if (toUpper( $.data.eventType ) == 'ON HAND AT DESTINATION') then 'Delivered' else 'unknown' ) else if (toLower( $.header.source ) == 'ups' ) then (   if (matches( toUpper( $.data.eventDesc ), 'P .*' )) then 'PickedUp'   else if (matches( toUpper( $.data.eventDesc ), 'D .*' )) then 'Delivered'   else if (matches( toUpper( $.data.eventDesc ), '.*DELIVERED.*' )) then 'Delivered'   else if (toUpper( $.data.eventType ) == 'MP' ) then 'Booked'   else if (toUpper( $.data.eventType ) == 'IP' ) then 'CustomsCleared'   else if (toUpper( $.data.eventType ) == 'OT' ) then 'DepartedPortOfOrigin'   else if (toUpper( $.data.eventType ) == 'OP' ) then 'DepartedPortOfOrigin'   else if (toUpper( $.data.eventType ) == 'YP' ) then 'DepartedPortOfOrigin'   else if (toUpper( $.data.eventType ) == 'OUT FOR DELIVERY TODAY' ) then 'Delivery Appointment' else 'unknown' ) else if (toLower( $.header.source ) == 'ceva' ) then (   if (toUpper( $.data.eventType ) == 'HAWBCR' ) then 'Booked'   else if (toUpper( $.data.eventType ) == 'PICKUP' ) then 'PickedUp'   else if (toUpper( $.data.eventType ) == 'OHO' ) then 'ArrivedPortOfOrigin'   else if (toUpper( $.data.eventType ) == 'OHD' ) then 'ArrivedPortOfDestination'   else if (toUpper( $.data.eventType ) == 'OFD' ) then 'Delivery Appointment'   else if (toUpper( $.data.eventType ) == 'DOCS2B' ) then 'Delivered'   else if (toUpper( $.data.eventType ) == 'DOCS2BP' ) then 'Delivered'   else if (toUpper( $.data.eventType ) == 'HWBCANCEL' ) then 'Delivered'   else if (toUpper( $.data.eventType ) == 'PODEXC' ) then 'Delivered'   else if (toUpper( $.data.eventType ) == 'PODPAR' ) then 'Delivered'   else if (toUpper( $.data.eventType ) == 'PODNR' ) then 'Delivered'   else if (toUpper( $.data.eventType ) == 'PODPARC' ) then 'Delivered'   else if (toUpper( $.data.eventType ) == 'PODP' ) then 'Delivered'   else if (toUpper( $.data.eventType ) == 'TPNE' ) then 'Delivered'   else if (toUpper( $.data.eventType ) == 'POD' ) then 'POD'   else if (toUpper( $.data.eventType ) == 'PODPC' ) then 'POD' else 'unknown' ) else if (toLower( $.header.source ) == 'crane' ) then (   if (toUpper( $.data.eventType ) == 'BKD' ) then 'Booked'   else if (toUpper( $.data.eventType ) == 'PICKUP' ) then 'PickedUp'   else if (toUpper( $.data.eventType ) == 'INTRNS-COB' ) then 'ArrivedPortOfOrigin'   else if (toUpper( $.data.eventType ) == 'OHD' ) then 'ArrivedPortOfDestination'   else if (toUpper( $.data.eventType ) == 'OFD' ) then 'Delivery Appointment'   else if (toUpper( $.data.eventType ) == 'DELIVERED' ) then 'Delivered' else 'unknown' ) else 'unknown'"
+                    }
+                ],
+                "name": "status_event",
+                "namespace": "test_logistics_bst",
+                "rowKey": ["lspTrackingId", "headersource_", "eventDate", "eventtype"],
+                "tableName": "status_event"
+            }
+        }
+    ],
+    "sourceMap": [
+        {
+            "templates": [
+                "shipmentDetails"
+            ],
+            "sourceName": "shipmentDetailsUpsAir",
+            "when": "( ( topic == 'shipmentDetails' ) && ( ( $.header.version == '1.0' ) && ( $.header.source == 'upsAir' ) ) )",
+            "idockey": ["$.header.timestamp"],
+            "sortkey": ["$.header.timestamp", "$.header.category"]
+        },
+        {
+            "templates": [
+                "shipmentDetails"
+            ],
+            "sourceName": "shipmentDetailsCeva",
+            "when": "( ( topic == 'shipmentDetails' ) && ( ( $.header.version == '1.0' ) && ( $.header.source == 'ceva' ) ) )",
+            "idockey": ["$.header.timestamp"],
+            "sortkey": ["$.header.timestamp", "$.header.category"]
+                },
+                {
+            "templates": [
+                "shipmentDetails"
+            ],
+            "sourceName": "shipmentDetailsDhlDgf",
+            "when": "( ( topic == 'shipmentDetails' ) && ( ( $.header.version == '1.0' ) && ( $.header.source == 'dhldgf' ) ) )",
+            "idockey": ["$.header.timestamp"],
+            "sortkey": ["$.header.timestamp", "$.header.category"]
+        },
+        {
+            "templates": [
+                "shipmentTracking"
+            ],
+            "sourceName": "shipmentTrackingCeva",
+            "when": "( ( ( topic == 'shipmentStatus' ) || ( topic == 'shipmentTracking' ) ) && ( ( $.header.version == '1.0' ) && ( $.header.source == 'ceva' ) ) )",
+            "idockey": ["$.header.timestamp"],
+            "sortkey": ["$.header.timestamp", "$.header.category"]
+        },
+        {
+            "templates": [
+                "shipmentTracking"
+            ],
+            "sourceName": "shipmentTrackingExpeditors",
+            "when": "( ( ( topic == 'shipmentStatus' ) || ( topic == 'shipmentTracking' ) ) && ( ( $.header.version == '1.0' ) && ( $.header.source == 'expeditors' ) ) )",
+            "idockey": ["$.header.timestamp"],
+            "sortkey": ["$.header.timestamp", "$.header.category"]
+        },
+        {
+            "templates": [
+                "shipmentTracking"
+            ],
+            "sourceName": "shipmentTrackingSchenkerGround",
+            "when": "( ( ( topic == 'shipmentStatus' ) || ( topic == 'shipmentTracking' ) ) && ( ( $.header.version == '1.0' ) && ( $.header.source == 'schenkerGround' ) ) )",
+            "idockey": ["$.header.timestamp"],
+            "sortkey": ["$.header.timestamp", "$.header.category"]
+        }
+    ]
+}
+
+

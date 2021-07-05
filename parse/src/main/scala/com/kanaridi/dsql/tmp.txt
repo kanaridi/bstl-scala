@@ -1,0 +1,35 @@
+
+      case "tee" => {
+        val sinkId1 = sinkNames(0)
+        val foKey = stringVal(flow, "signals.sources[0].signalId", "anonymous")
+
+        val teeOp = teeDict.get(foKey) match {
+          case Some(firstTee) => {
+            new TeeOpSecondSink(firstTee)
+          }
+          case None => {
+            val tMaster = new TeeOp(sources(0).get)
+            teeDict.put(foKey, tMaster)
+
+            def findFirst(upstreamName: String): String = {
+              val q = "$.operations[*][?(@.signals.sources[?(@.signalId == '" + upstreamName + "')])]"
+              val so = subObjects(q, ast)
+              // println(s"downstream flow $q is $so")
+              if (so.length == 0)
+                upstreamName
+              else {
+                val nextUpstream = stringVal(so(0), "signals.sinks[0].signalId", "-none-")
+                if (nextUpstream == "-none-")
+                  upstreamName
+                else
+                  findFirst(stringVal(so(0), "signals.sinks[0].signalId", ""))
+              }
+            }
+
+            tMaster.alternates = Some(sinkNames.filter( x => x != sigName).map( x =>  getDownstreamOp(findFirst(x), spark)).flatten)
+
+            // println(s"set alternbate sink to ${tMaster.alternateSink}")
+            tMaster
+
+          }
+        }

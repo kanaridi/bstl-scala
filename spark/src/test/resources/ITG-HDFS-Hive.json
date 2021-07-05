@@ -1,0 +1,10 @@
+{
+    "hdfs-write": {
+        "hive_mapping" : {
+            "topic1": "mapped1",
+            "topic2": "mapped2"
+        },
+        "hdfs-raw": "raw",
+        "save-mode" : "text"
+    }
+}

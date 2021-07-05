@@ -1,0 +1,578 @@
+{
+  "version": "0.2.1",
+
+  "templates": [
+    {
+      "name": "schedule",
+      "rows" : [
+        {
+          "name":  "order_schedule",
+          "namespace": "ea_sc_kif",
+          "col_family": "o",
+          "rowkey": [
+            "../../$.*.IDOC.EDI_DC40.MANDT",
+            "../../$.*.IDOC.E1EDK01.BELNR",
+            "../$.POSEX",
+            "$.ZORD_SCHEDULELINES01.ETENR"
+          ],
+
+          "cols": [
+            [ "client",  "../../$.*.IDOC.EDI_DC40.MANDT" ],
+            [ "serial", "../../$.*.IDOC.EDI_DC40.SERIAL"],
+            [ "sapon", "../../$.*.IDOC.E1EDK01.BELNR"],
+            [ "sapitemnum", "../$.POSEX"],
+            [ "schedulelinenum", "$.ZORD_SCHEDULELINES01.ETENR"],
+            [ "planneddeliverydate", "$.ZORD_SCHEDULELINES01.EDATU"],
+            [ "plannedfactoryshipdate", "$.ZORD_SCHEDULELINES01.WADAT"],
+            [ "schedulelineconfirmedqty", "$.ZORD_SCHEDULELINES01.BMENG"],
+            [ "schedulelineorderedqty", "$.ZORD_SCHEDULELINES01.WMENG"],
+            [ "plannedloadingdate", "$.ZORD_SCHEDULELINES01.LDDAT"],
+            [ "plannedmaterialavaildt", "$.ZORD_SCHEDULELINES01.MBDAT"],
+            [ "schedulelineblocked", "$.ZORD_SCHEDULELINES01.LIFSP"],
+            [ "plannedtransportationdate", "$.ZORD_SCHEDULELINES01.TDDAT"],
+            [ "mapver", "'0.2.1'"]
+          ],
+          "deDupCols": [
+            "client",
+            "sapon",
+            "sapitemnum",
+            "schedulelinenum",
+            "planneddeliverydate",
+            "plannedfactoryshipdate",
+            "schedulelineconfirmedqty",
+            "schedulelineorderedqty",
+            "plannedloadingdate",
+            "plannedmaterialavaildt",
+            "schedulelineblocked",
+            "plannedtransportationdate"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "purchase",
+      "rows": [
+        {
+          "name": "order_purchase_details",
+          "namespace": "ea_sc_kif",
+          "col_family": "o",
+          "rowkey": [
+            "../$.*.IDOC.EDI_DC40.MANDT",
+            "../$.*.IDOC.E1EDK01.BELNR",
+            "$.POSEX"
+          ],
+
+          "cols": [
+            ["client", "../$.*.IDOC.EDI_DC40.MANDT" ],
+            ["serial", "../$.*.IDOC.EDI_DC40.SERIAL"],
+            ["supplierpocreateddt", "../$.*.IDOC.E1EDK03[*][?(@.IDDAT == '012')].DATUM"],
+            ["supplierponum", "../$.*.IDOC.E1EDK01.BELNR"],
+            ["supplierpoitemnum", "$.POSEX"],
+            [ "factoryplant", "$.WERKS"],
+            [ "sapon", "$.E1EDPT1[*][?(@.TDID == 'ZSO')].E1EDPT2[*][?(@.TDFORMAT == 'S1')].TDLINE"],
+            [ "sapitemnum", "$.E1EDPT1[*][?(@.TDID == 'ZSO')].E1EDPT2[*][?(@.TDFORMAT == 'S2')].TDLINE"],
+            [ "mapver", "'0.2.1'"]
+          ],
+          "deDupCols": [
+            "client",
+            "supplierpocreateddt",
+            "supplierponum",
+            "supplierpoitemnum",
+            "factoryplant",
+            "sapon",
+            "sapitemnum"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "header_status",
+      "rows": [
+        {
+          "name": "order_status",
+          "namespace": "ea_sc_kif",
+          "col_family": "o",
+          "rowkey": ["../$.*.IDOC.EDI_DC40.MANDT",
+                     "$.OBJNR",
+                     "$.STAT",
+                     "$.CHGNR",
+                    "'header'"],
+
+          "cols": [
+            [ "client", "../$.*.IDOC.EDI_DC40.MANDT" ],
+            [ "serial", "../$.*.IDOC.EDI_DC40.SERIAL"],
+            [ "statustype", "'header'" ],
+            [ "objectnumber", "$.OBJNR"],
+            [ "objectnumber", "$.OBJNR"],
+            [ "objectstatus", "$.STAT"],
+            [ "objectchangenum", "$.CHGNR"],
+            [ "objectdt", "$.UDATE"],
+            [ "objecttime", "$.UTIME"],
+            [ "objectinactive", "$.INACT"],
+            [ "objectusername", "$.USNAM"],
+            [ "objecttransactioncode", "$.TCODE"],
+            [ "objectstatuscode", "$.TXT04"],
+            [ "objectstatusdescription", "$.TXT30"],
+            [ "mapver", "'0.2.1'"]
+          ],
+          "deDupCols": [
+            "client",
+            "statustype",
+            "objectnumber",
+            "objectnumber",
+            "objectstatus",
+            "objectchangenum",
+            "objectdt",
+            "objecttime",
+            "objectinactive",
+            "objectusername",
+            "objecttransactioncode",
+            "objectstatuscode",
+            "objectstatusdescription"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "status",
+      "rows": [
+        {
+          "name": "order_status",
+          "namespace": "ea_sc_kif",
+          "col_family": "o",
+          "rowkey": ["../$.*.IDOC.EDI_DC40.MANDT",
+                     "$.OBJNR",
+                     "$.STAT",
+                     "$.CHGNR",
+                    "'header'"],
+
+          "cols": [
+            [ "client", "../$.*.IDOC.EDI_DC40.MANDT" ],
+            [ "serial", "../$.*.IDOC.EDI_DC40.SERIAL"],
+            [ "statustype", "'header'" ],
+            [ "objectnumber", "$.OBJNR"],
+            [ "objectnumber", "$.OBJNR"],
+            [ "objectstatus", "$.STAT"],
+            [ "objectchangenum", "$.CHGNR"],
+            [ "objectdt", "$.UDATE"],
+            [ "objecttime", "$.UTIME"],
+            [ "objectinactive", "$.INACT"],
+            [ "objectusername", "$.USNAM"],
+            [ "objecttransactioncode", "$.TCODE"],
+            [ "objectstatuscode", "$.TXT04"],
+            [ "objectstatusdescription", "$.TXT30"],
+            [ "mapver", "'0.2.1'"]
+          ],
+          "deDupCols": [
+            "client",
+            "statustype",
+            "objectnumber",
+            "objectnumber",
+            "objectstatus",
+            "objectchangenum",
+            "objectdt",
+            "objecttime",
+            "objectinactive",
+            "objectusername",
+            "objecttransactioncode",
+            "objectstatuscode",
+            "objectstatusdescription"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "line_status",
+      "rows": [
+        {
+          "name": "order_status",
+          "namespace": "ea_sc_kif",
+          "col_family": "o",
+          "rowkey": ["../../$.*.IDOC.EDI_DC40.MANDT",
+                     "$.OBJNR",
+                     "$.STAT",
+                     "$.CHGNR",
+                     "'item'"],
+
+          "cols": [
+            [ "statustype", "'item'" ],
+            [ "client", "../../$.*.IDOC.EDI_DC40.MANDT" ],
+            [ "serial", "../../$.*.IDOC.EDI_DC40.SERIAL"],
+            [ "objectnumber", "$.OBJNR"],
+            [ "objectnumber", "$.OBJNR"],
+            [ "objectstatus", "$.STAT"],
+            [ "objectchangenum", "$.CHGNR"],
+            [ "objectdt", "$.UDATE"],
+            [ "objecttime", "$.UTIME"],
+            [ "objectinactive", "$.INACT"],
+            [ "objectusername", "$.USNAM"],
+            [ "objecttransactioncode", "$.TCODE"],
+            [ "objectstatuscode", "$.TXT04"],
+            [ "objectstatusdescription", "$.TXT30"],
+            [ "mapver", "'0.2.1'"]
+          ],
+          "deDupCols": [
+            "statustype",
+            "client",
+            "objectnumber",
+            "objectnumber",
+            "objectstatus",
+            "objectchangenum",
+            "objectdt",
+            "objecttime",
+            "objectinactive",
+            "objectusername",
+            "objecttransactioncode",
+            "objectstatuscode",
+            "objectstatusdescription"
+          ]
+        }
+      ]
+    },
+
+    {
+      "name": "delivery_line",
+      "rows": [
+        {
+          "name": "delivery_details",
+          "namespace": "ea_sc_kif",
+          "col_family": "o",
+          "rowkey": [ "../$.*.IDOC.EDI_DC40.MANDT",
+                      "../$.*.IDOC.E1EDL20.VBELN",
+                      "$.POSNR"],
+          "cols": [
+            [ "client", "../$.*.IDOC.EDI_DC40.MANDT"],
+            [ "serial", "../$.*.IDOC.EDI_DC40.SERIAL"],
+            [ "delivery", "../$.*.IDOC.E1EDL20.VBELN"],
+            [ "deliverytype", "../$.*.IDOC.E1EDL20.E1EDL21.LFART"],
+            [ "deliverytypedesc", "../$.*.IDOC.E1EDL20.E1EDL21.E1EDL23.LFART_BEZ"],
+            [ "deliverydt", "../$.*.IDOC.E1EDL20.E1EDT13[*][?(@.QUALF == '006')].NTANF"],
+            [ "delivereddt", "../$.*.IDOC.E1EDL20.E1EDT13[*][?(@.QUALF == '007')].NTANF"],
+            [ "documentdt", "../$.*.IDOC.E1EDL20.E1EDT13[*][?(@.QUALF == '015')].NTANF"],
+            [ "lspid", "../$.*.IDOC.E1EDL20.E1ADRM1..[?(@.PARTNER_Q == 'SP')].PARTNER_ID"],
+            [ "lsp", "../$.*.IDOC.E1EDL20.E1ADRM1..[?(@.PARTNER_Q == 'SP')].NAME1"],
+            [ "poddt", "../$.*.IDOC.E1EDL20.PODAT"],
+            [ "podtime", "../$.*.IDOC.E1EDL20.POTIM"],
+            [ "deliveryshippoint", "../$.*.IDOC.E1EDL20.VSTEL"],
+            [ "billodlading", "../$.*.IDOC.E1EDL20.BOLNR"],
+            [ "externaldelivery", "../$.*.IDOC.E1EDL20.LIFEX"],
+            [ "trackingid", "../$.*.IDOC.E1EDL20.TRAID"],
+            [ "deliveryline", "$.POSNR"],
+            [ "sapon", "$.VGBEL"],
+            [ "sapitemnum", "$.VGPOS"],
+            [ "deliveryplant", "$.WERKS"],
+            [ "deliveryqty", "$.LFIMG"],
+            [ "mapver", "'0.2.1'"]
+          ],
+          "deDupCols": [
+            "client",
+            "delivery",
+            "deliverytype",
+            "deliverytypedesc",
+            "deliverydt",
+            "delivereddt",
+            "documentdt",
+            "lspid",
+            "lsp",
+            "poddt",
+            "podtime",
+            "deliveryshippoint",
+            "billodlading",
+            "externaldelivery",
+            "trackingid",
+            "deliveryline",
+            "sapon",
+            "sapitemnum",
+            "deliveryplant",
+            "deliveryqty"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "delivery",
+      "children": [
+        {
+          "template": "delivery_line",
+          "select": "$.*.IDOC.E1EDL20.E1EDL24"
+        }
+      ]
+    },
+    {
+      "name": "partner",
+      "rows": [
+        {
+          "name": "order_partner",
+          "namespace": "ea_sc_kif",
+          "col_family": "o",
+          "rowkey": [ "$.*.IDOC.EDI_DC40.MANDT",
+                      "$.*.IDOC.E1EDK01.BELNR" ],
+
+          "cols": [
+            [ "client", "$.*.IDOC.EDI_DC40.MANDT"],
+            [ "serial", "$.*.IDOC.EDI_DC40.SERIAL"],
+            [ "sapon", "$.*.IDOC.E1EDK01.BELNR"],
+            [ "soldtocountry", "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'AG')].LAND1"],
+            [ "soldtostreet", "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'AG')].STRAS"],
+            [ "soldtoregion", "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'AG')].REGIO"],
+            [ "soldtopostalcode", "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'AG')].PSTLZ"],
+            [ "soldtopartyid", "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'AG')].PARTN"],
+            [ "soldtocustomer", "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'AG')].NAME1"],
+            [ "soldtocity", "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'AG')].ORT01"],
+            [ "shiptocountry", "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'WE')].LAND1"],
+            [ "shiptostreet", "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'WE')].STRAS"],
+            [ "shiptoregion", "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'WE')].REGIO"],
+            [ "shiptopostalcode", "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'WE')].PSTLZ"],
+            [ "shiptopartypo", "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'WE')].PARTN"],
+            [ "shiptocustomer", "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'WE')].NAME1"],
+            [ "shiptocity", "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'WE')].ORT01"],
+            [ "resellercountry", "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'Z1')].LAND1"],
+            [ "resellerstreet", "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'Z1')].STRAS"],
+            [ "resellerregion", "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'Z1')].REGIO"],
+            [ "resellerpostalcode", "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'Z1')].PSTLZ"],
+            [ "resellercity", "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'Z1')].ORT01"],
+            [ "reseller", "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'Z1')].NAME1"],
+            [ "endcustomercountry", "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'ZC')].LAND1"],
+            [ "endcustomerstreet", "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'ZC')].STRAS"],
+            [ "endcustomerregion", "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'ZC')].REGIO"],
+            [ "endcustomerpostalcode", "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'ZC')].PSTLZ"],
+            [ "endcustomercity", "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'ZC')].ORT01"],
+            [ "endcustomer", "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'ZC')].NAME1"],
+            [ "mapver", "'0.2.1'"]
+          ],
+          "deDupCols": [
+            "client",
+            "sapon",
+            "soldtocountry",
+            "soldtostreet",
+            "soldtoregion",
+            "soldtopostalcode",
+            "soldtopartyid",
+            "soldtocustomer",
+            "soldtocity",
+            "shiptocountry",
+            "shiptostreet",
+            "shiptoregion",
+            "shiptopostalcode",
+            "shiptopartypo",
+            "shiptocustomer",
+            "shiptocity",
+            "resellercountry",
+            "resellerstreet",
+            "resellerregion",
+            "resellerpostalcode",
+            "resellercity",
+            "reseller",
+            "endcustomercountry",
+            "endcustomerstreet",
+            "endcustomerregion",
+            "endcustomerpostalcode",
+            "endcustomercity",
+            "endcustomer"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "line_item",
+      "rows": [
+        {
+          "name": "order_details",
+          "namespace": "ea_sc_kif",
+          "col_family": "o",
+          "rowkey": [ "../$.*.IDOC.EDI_DC40.MANDT",
+                      "../$.*.IDOC.E1EDK01.BELNR",
+                      "$.POSEX"],
+          "cols": [
+            ["client", "../$.*.IDOC.EDI_DC40.MANDT"],
+            ["serial", "../$.*.IDOC.EDI_DC40.SERIAL"],
+            ["sapon", "../$.*.IDOC.E1EDK01.BELNR"],
+            ["ordertype", "../$.*.IDOC.E1EDK14[*][?(@.QUALF == '012')].ORGID"],
+            ["ordercreateddt", "../$.*.IDOC.E1EDK03[*][?(@.IDDAT == '025')].DATUM"],
+            ["ordercreatetime", "../$.*.IDOC.E1EDK03[*][?(@.IDDAT == '025')].UZEIT"],
+            ["rdd", "../$.*.IDOC.E1EDK03[*][?(@.IDDAT == '002')].DATUM"],
+            ["salesorganization", "../$.*.IDOC.E1EDK14[*][?(@.QUALF == '008')].ORGID"],
+            ["salesgroup", "../$.*.IDOC.E1EDK14[*][?(@.QUALF == '010')].ORGID"],
+            ["distributionchannel", "../$.*.IDOC.E1EDK14[*][?(@.QUALF == '007')].ORGID"],
+            ["receiveddt", "../$.*.IDOC.E1EDK01.ZORD_HEADER.ZZRECV_DAT"],
+            ["dccode", "../$.*.IDOC.E1EDK01.ZORD_HEADER.ZZDC_CODE"],
+            ["billingblockreasoncode", "../$.*.IDOC.E1EDK01.ZORD_HEADER.FAKSK"],
+            ["deliveryblock", "../$.*.IDOC.E1EDK01.LIFSK"],
+            ["compldelflag", "../$.*.IDOC.E1EDK01.AUTLF"],
+            ["intgrtime", "../$.*.IDOC.E1EDK01.ZORD_HEADER.ZZINTGR_TIME"],
+            ["netamountorder", "../$.*.IDOC.E1EDS01[*][?(@.SUMID == '002')].SUMME"],
+            ["rtm", "../$.*.IDOC.E1EDK01.ZORD_HEADER.SUBMI"],
+            ["currencyorder", "../$.*.IDOC.E1EDK01.CURCY"],
+            ["usage", "../$.*.IDOC.E1EDK01.ABRVW"],
+            ["usagedescr", "../$.*.IDOC.E1EDK01.ABRVW_BEZ"],
+            ["orc", "../$.*.IDOC.E1EDK01.AUGRU"],
+            ["salesoffice", "../$.*.IDOC.E1EDK14[*][?(@.QUALF == '016')].ORGID"],
+            ["documentdt", "../$.*.IDOC.E1EDK03[*][?(@.IDDAT == '012')].DATUM"],
+            ["hpquote", "../$.*.IDOC.E1EDK01.ZORD_HEADER.ZZQUOTEN"],
+            ["dealid", "../$.*.IDOC.E1EDK01.ZORD_HEADER.ZZDEAL_ID"],
+            ["oppidorder", "../$.*.IDOC.E1EDK01.ZORD_HEADER.ZZF_OPP_ID"],
+            ["deliverypriorityheader", "../$.*.IDOC.E1EDK01.ZORD_HEADER.ZZ_DEL_PRTY"],
+            ["orcdescr", "../$.*.IDOC.E1EDK01.AUGRU_BEZ"],
+            ["deliveryblockdescr", "../$.*.IDOC.E1EDK01.LIFSK_BEZ"],
+            ["distributionchanneldescr", "../$.*.IDOC.E1EDK14[*][?(@.QUALF == '007')].ORGID"],
+            ["customerponumber", "../$.*.IDOC.E1EDK02[*][?(@.QUALF == '001')].BELNR"],
+            ["customerpocreateddt", "../$.*.IDOC.E1EDK02[*][?(@.QUALF == '001')].DATUM"],
+
+            ["customerpoitemnumber", "$.E1CUREF.POSEX"],
+            ["sapitemnum", "$.POSEX"],
+            ["rejectionreason", "$.ABGRU"],
+            ["itemcreateddt", "$.E1EDP03[*][?(@.IDDAT == '025')].DATUM"],
+            ["itemcreatetime", "$.E1EDP03[*][?(@.IDDAT == '025')].UZEIT"],
+            ["orderedqty", "$.MENGE"],
+            ["itemcategory", "$.PSTYV"],
+            ["shippingpoint", "$.VSTEL"],
+            ["plant", "$.WERKS"],
+            ["hli", "$.UEPOS"],
+            ["deliverygroupsap", "$.GRKOR"],
+            ["route", "$.ROUTE"],
+            ["routedescr", "$.ROUTE_BEZ"],
+            ["productdescr", "$.E1EDP19..[?(@.QUALF == '002')].KTEXT"],
+            ["materialnum", "$.E1EDP19..[?(@.QUALF == '002')].IDTNR_LONG"],
+            ["productline", "$.ZORD_ITEM01.SPART"],
+            ["deliverypriority", "$.LPRIO"],
+            ["deliveryprioritydescr", "$.LPRIO_BEZ"],
+            ["itemnetprice", "$.VPREI"],
+            ["netamountitem", "$.NETWR"],
+            ["currencyitem", "$.CURCY"],
+            ["reasoncode", "$.ZORD_ITEM.ZZRSN_CODE"],
+            ["atpcheckflag", "if ($.ZORD_ITEM.ZZATP_FLAG) then $.ZORD_ITEM.ZZATP_FLAG else 'NULL'"],
+            ["multipledealid", "$.ZORD_ITEM.ZZMDEAL_ID"],
+            ["oppiditem", "$.ZORD_ITEM.ZZOPPID"],
+            [ "mapver", "'0.2.1'"]
+          ],
+          "deDupCols": [
+            "client",
+            "sapon",
+            "ordertype",
+            "ordercreateddt",
+            "ordercreatetime",
+            "rdd",
+            "salesorganization",
+            "salesgroup",
+            "distributionchannel",
+            "receiveddt",
+            "dccode",
+            "billingblockreasoncode",
+            "deliveryblock",
+            "compldelflag",
+            "intgrtime",
+            "netamountorder",
+            "rtm",
+            "currencyorder",
+            "usage",
+            "usagedescr",
+            "orc",
+            "salesoffice",
+            "documentdt",
+            "hpquote",
+            "dealid",
+            "oppidorder",
+            "deliverypriorityheader",
+            "orcdescr",
+            "deliveryblockdescr",
+            "distributionchanneldescr",
+            "customerponumber",
+            "customerpocreateddt",
+            "customerpoitemnumber",
+            "sapitemnum",
+            "rejectionreason",
+            "itemcreateddt",
+            "itemcreatetime",
+            "orderedqty",
+            "itemcategory",
+            "shippingpoint",
+            "plant",
+            "hli",
+            "deliverygroupsap",
+            "route",
+            "routedescr",
+            "productdescr",
+            "materialnum",
+            "productline",
+            "deliverypriority",
+            "deliveryprioritydescr",
+            "itemnetprice",
+            "netamountitem",
+            "currencyitem",
+            "reasoncode",
+            "atpcheckflag",
+            "multipledealid",
+            "oppiditem"
+          ]
+        }
+      ],
+      "children": [
+        {
+          "template": "line_status",
+          "select": "$.ZORD_ITEMSTATUS"
+        },
+        {
+          "template": "schedule",
+          "select": "$.E1EDP20"
+        }
+      ]
+    },
+    {
+      "name": "order_details",
+      "children": [
+        {
+          "template": "line_item",
+          "select": "$.*.IDOC.E1EDP01"
+        },
+        {
+          "template": "header_status",
+          "select": "$.*.IDOC.E1EDK01.ZORD_HEADERSTATUS"
+        }
+      ]
+    },
+    {
+      "name": "orders",
+      "children": [
+        {
+          "template": "purchase",
+          "select": "$.*.IDOC.E1EDP01"
+        }
+      ]
+    }
+  ],
+  "kafka-topics": [
+    {
+      "topic": "ORDERS_SERP_hpit-ifsl",
+      "templates": [ "orders" ],
+      "idockey": [ "$.*.IDOC.EDI_DC40.DOCNUM" ],
+      "sortkey": ["$.*.IDOC.EDI_DC40.CREDAT",
+                  "$.*.IDOC.EDI_DC40.CRETIM",
+                  "$.*.IDOC.EDI_DC40.DOCNUM" ],
+      "idkey": ["$.*.IDOC.EDI_DC40.MANDT",
+                "$.*.IDOC.E1EDK01.BELNR",
+                "$.*.IDOC.EDI_DC40.SERIAL"]
+    },
+    {
+      "topic": "ORDRSP_SERP_hpit-ifsl",
+      "templates": [ "partner", "order_details" ],
+      "idockey": [ "$.*.IDOC.EDI_DC40.DOCNUM" ],
+      "sortkey": ["$.*.IDOC.EDI_DC40.CREDAT",
+                  "$.*.IDOC.EDI_DC40.CRETIM",
+                  "$.*.IDOC.EDI_DC40.DOCNUM" ],
+      "idkey": ["$.*.IDOC.EDI_DC40.MANDT",
+                "$.*.IDOC.E1EDK01.BELNR",
+                "$.*.IDOC.EDI_DC40.SERIAL"]
+    },
+    {
+      "topic": "DESADV_SERP_hpit-ifsl",
+      "templates": [ "delivery" ],
+      "idockey": [ "$.*.IDOC.EDI_DC40.DOCNUM" ],
+      "sortkey": ["$.*.IDOC.EDI_DC40.CREDAT",
+                  "$.*.IDOC.EDI_DC40.CRETIM",
+                  "$.*.IDOC.EDI_DC40.DOCNUM" ],
+      "idkey": ["$.*.IDOC.EDI_DC40.MANDT",
+                "$.*.IDOC.E1EDK01.BELNR",
+                "$.*.IDOC.EDI_DC40.SERIAL"]
+    }
+  ]
+}

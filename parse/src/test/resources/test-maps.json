@@ -1,0 +1,60 @@
+{
+  "version": "0.4.1",
+  "schemaVersion": "0.4.1",
+  "flows": [
+    {
+      "name": "wom",
+      "type": "simpleJsonResource",
+      "filePath": "/wom-uss.json"
+    },
+    {
+      "name": "explodeDc",
+      "type": "withColumn",
+      "source": "wom",
+      "col": "dc",
+      "expr": "explode(data)"
+    },
+    {
+      "name": "popData",
+      "type": "popStruct",
+      "col": "dc",
+      "source": "explodeDc" 
+    },
+    {
+      "name": "explodeRows",
+      "type": "withColumn",
+      "source": "popData",
+      "col": "rows",
+      "expr": "explode(table)"
+    },
+    {
+      "name": "popTable",
+      "type": "popStruct",
+      "col": "rows",
+      "source": "explodeRows"
+    },
+    {
+      "name": "vertFin1",
+      "type": "verticaSource",
+      "table": "fnctl_ar_std_hrchy",
+      "db": "finpoc",
+      "dbschema": "ea_common",
+      "user": "dbadmin",
+      "password": "***",
+      "host": "52.183.113.55",
+      "part": "12"
+    },
+    {
+      "name": "writeJson",
+      "type": "jsonSink",
+      "prefetch": { "from": "201901", "to": "202412" },
+      "path": "/tmp/foo.json",
+      "source": "vertFin1"
+    }
+    
+  ],
+  "templates": [
+  ],
+  "sourceMap": [
+  ]
+}

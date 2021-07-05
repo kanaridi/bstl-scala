@@ -1,0 +1,1144 @@
+{
+    "version": "0.4.1",
+    "schemaVersion": "0.4.1",
+    "templates": [
+        {
+            "name": "schedule",
+            "row" : {
+                "name":  "order_schedule",
+                "tableName": "order_schedule",
+                "namespace": "ea_sc_kif",
+                "colFamily": "o",
+                "rowKey": ["client", "sapon", "sapitemnum", "schedulelinenum"],
+                "cols": [
+                    {
+                        "name":  "client",
+                        "value": "../../$.*.IDOC.EDI_DC40.MANDT",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name":  "serial",
+                        "value": "../../$.*.IDOC.EDI_DC40.SERIAL",
+                        "colFamily": "o"
+                    },
+                    {
+                        "name":  "sapon",
+                        "value": "../../$.*.IDOC.E1EDK01.BELNR",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name":  "sapitemnum",
+                        "value": "../$.POSEX",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name":  "schedulelinenum",
+                        "value": "$.ZORD_SCHEDULELINES01.ETENR",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name":  "planneddeliverydate",
+                        "value": "$.ZORD_SCHEDULELINES01.EDATU",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name":  "plannedfactoryshipdate",
+                        "value": "$.ZORD_SCHEDULELINES01.WADAT",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name":  "schedulelineconfirmedqty",
+                        "value": "$.ZORD_SCHEDULELINES01.BMENG",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name":  "schedulelineorderedqty",
+                        "value": "$.ZORD_SCHEDULELINES01.WMENG",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name":  "plannedloadingdate",
+                        "value": "$.ZORD_SCHEDULELINES01.LDDAT",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name":  "plannedmaterialavaildt",
+                        "value": "$.ZORD_SCHEDULELINES01.MBDAT",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name":  "schedulelineblocked",
+                        "value": "$.ZORD_SCHEDULELINES01.LIFSP",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name":  "plannedtransportationdate",
+                        "value": "$.ZORD_SCHEDULELINES01.TDDAT",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name":  "mapver",
+                        "value": "'0.2.1'",
+                        "colFamily": "o"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "purchase",
+            "row": {
+                "name": "order_purchase_details",
+                "tableName": "order_purchase_details",
+                "namespace": "ea_sc_kif",
+                "colFamily": "o",
+                "rowKey": ["client", "supplierponum", "supplierpoitemnum"],
+                "cols": [
+                    {
+                        "name": "client",
+                        "value": "../$.*.IDOC.EDI_DC40.MANDT",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "serial",
+                        "value": "../$.*.IDOC.EDI_DC40.SERIAL",
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "supplierpocreateddt",
+                        "value": "../$.*.IDOC.E1EDK03[*][?(@.IDDAT == '012')].DATUM",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "supplierponum",
+                        "value": "../$.*.IDOC.E1EDK01.BELNR",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "supplierpoitemnum",
+                        "value": "$.POSEX",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name":  "factoryplant",
+                        "value": "$.WERKS",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name":  "sapon",
+                        "value": "$.E1EDPT1[*][?(@.TDID == 'ZSO')].E1EDPT2[*][?(@.TDFORMAT == 'S1')].TDLINE",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name":  "sapitemnum",
+                        "value": "$.E1EDPT1[*][?(@.TDID == 'ZSO')].E1EDPT2[*][?(@.TDFORMAT == 'S2')].TDLINE",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name":  "mapver",
+                        "value": "'0.2.1'",
+                        "colFamily": "o"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "header_status",
+            "row": {
+                "name": "order_status",
+                "tableName": "order_status",
+                "namespace": "ea_sc_kif",
+                "rowKey": ["client", "objectnumber", "objectstatus", "objectchangenum", "'header'"],
+                "colFamily": "o",
+                "cols": [
+                    {
+                        "name": "client",
+                        "value": "../$.*.IDOC.EDI_DC40.MANDT",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "serial",
+                        "value": "../$.*.IDOC.EDI_DC40.SERIAL",
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "statustype",
+                        "value": "'header'",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "objectnumber",
+                        "value": "$.OBJNR",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "objectnumber",
+                        "value": "$.OBJNR",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "objectstatus",
+                        "value": "$.STAT",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "objectchangenum",
+                        "value": "$.CHGNR",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "objectdt",
+                        "value": "$.UDATE",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "objecttime",
+                        "value": "$.UTIME",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "objectinactive",
+                        "value": "$.INACT",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "objectusername",
+                        "value": "$.USNAM",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "objecttransactioncode",
+                        "value": "$.TCODE",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "objectstatuscode",
+                        "value": "$.TXT04",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "objectstatusdescription",
+                        "value": "$.TXT30",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "mapver",
+                        "value": "'0.2.1'",
+                        "colFamily": "o"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "line_status",
+            "row": {
+                "name": "order_status",
+                "tableName": "order_status",
+                "namespace": "ea_sc_kif",
+                "rowKey": ["client", "objectnumber", "objectstatus", "objectchangenum", "'item'"],
+                "colFamily": "o",
+                "cols": [
+                    {
+                        "name": "statustype",
+                        "value": "'item'",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "client",
+                        "value": "../../$.*.IDOC.EDI_DC40.MANDT",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "serial",
+                        "value": "../../$.*.IDOC.EDI_DC40.SERIAL",
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "objectnumber",
+                        "value": "$.OBJNR",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "objectnumber",
+                        "value": "$.OBJNR",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "objectstatus",
+                        "value": "$.STAT",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "objectchangenum",
+                        "value": "$.CHGNR",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "objectdt",
+                        "value": "$.UDATE",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "objecttime",
+                        "value": "$.UTIME",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "objectinactive",
+                        "value": "$.INACT",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "objectusername",
+                        "value": "$.USNAM",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    { "name": "objecttransactioncode",
+                      "value": "$.TCODE",
+                      "isDedup": true,
+                      "colFamily": "o"
+                    },
+                    {
+                        "name": "objectstatuscode",
+                        "value": "$.TXT04",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "objectstatusdescription",
+                        "value": "$.TXT30",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "mapver",
+                        "value": "'0.2.1'",
+                        "colFamily": "o"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "delivery_line",
+            "row": {
+                "name": "delivery_details",
+                "tableName": "delivery_details",
+                "namespace": "ea_sc_kif",
+                "rowKey": ["client", "delivery", "deliveryline"],
+                "colFamily": "o",
+                "cols": [
+                    {
+                        "name": "client",
+                        "value": "../$.*.IDOC.EDI_DC40.MANDT",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "serial",
+                        "value": "../$.*.IDOC.EDI_DC40.SERIAL",
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "delivery",
+                        "value": "../$.*.IDOC.E1EDL20.VBELN",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "deliverytype",
+                        "value": "../$.*.IDOC.E1EDL20.E1EDL21.LFART",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "deliverytypedesc",
+                        "value": "../$.*.IDOC.E1EDL20.E1EDL21.E1EDL23.LFART_BEZ",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "deliverydt",
+                        "value": "../$.*.IDOC.E1EDL20.E1EDT13[*][?(@.QUALF == '006')].NTANF",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "delivereddt",
+                        "value": "../$.*.IDOC.E1EDL20.E1EDT13[*][?(@.QUALF == '007')].NTANF",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "documentdt",
+                        "value": "../$.*.IDOC.E1EDL20.E1EDT13[*][?(@.QUALF == '015')].NTANF",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "lspid",
+                        "value": "../$.*.IDOC.E1EDL20.E1ADRM1..[?(@.PARTNER_Q == 'SP')].PARTNER_ID",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "lsp",
+                        "value": "../$.*.IDOC.E1EDL20.E1ADRM1..[?(@.PARTNER_Q == 'SP')].NAME1",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "poddt",
+                        "value": "../$.*.IDOC.E1EDL20.PODAT",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "podtime",
+                        "value": "../$.*.IDOC.E1EDL20.POTIM",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "deliveryshippoint",
+                        "value": "../$.*.IDOC.E1EDL20.VSTEL",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "billodlading",
+                        "value": "../$.*.IDOC.E1EDL20.BOLNR",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "externaldelivery",
+                        "value": "../$.*.IDOC.E1EDL20.LIFEX",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "trackingid",
+                        "value": "../$.*.IDOC.E1EDL20.TRAID",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "deliveryline",
+                        "value": "$.POSNR",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "sapon",
+                        "value": "$.VGBEL",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "sapitemnum",
+                        "value": "$.VGPOS",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "deliveryplant",
+                        "value": "$.WERKS",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "deliveryqty",
+                        "value": "$.LFIMG",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "delivery",
+            "children": [
+                {
+                    "template": "delivery_line",
+                    "select": "$.*.IDOC.E1EDL20.E1EDL24"
+                }
+            ]
+        },
+        {
+            "name": "partner",
+            "row": {
+                "name": "order_partner",
+                "tableName": "order_partner",
+                "namespace": "ea_sc_kif",
+                "colFamily": "o",
+                "rowKey": ["client", "sapon"],
+                "cols": [
+                    {
+                        "name": "client",
+                        "value": "$.*.IDOC.EDI_DC40.MANDT",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "serial",
+                        "value": "$.*.IDOC.EDI_DC40.SERIAL",
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "sapon",
+                        "value": "$.*.IDOC.E1EDK01.BELNR",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "soldtocountry",
+                        "value": "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'AG')].LAND1",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "soldtostreet",
+                        "value": "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'AG')].STRAS",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "soldtoregion",
+                        "value": "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'AG')].REGIO",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "soldtopostalcode",
+                        "value": "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'AG')].PSTLZ",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "soldtopartyid",
+                        "value": "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'AG')].PARTN",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "soldtocustomer",
+                        "value": "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'AG')].NAME1",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "soldtocity",
+                        "value": "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'AG')].ORT01",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "shiptocountry",
+                        "value": "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'WE')].LAND1",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "shiptostreet",
+                        "value": "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'WE')].STRAS",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "shiptoregion",
+                        "value": "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'WE')].REGIO",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "shiptopostalcode",
+                        "value": "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'WE')].PSTLZ",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "shiptopartypo",
+                        "value": "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'WE')].PARTN",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "shiptocustomer",
+                        "value": "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'WE')].NAME1",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "shiptocity",
+                        "value": "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'WE')].ORT01",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "resellercountry",
+                        "value": "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'Z1')].LAND1",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "resellerstreet",
+                        "value": "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'Z1')].STRAS",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "resellerregion",
+                        "value": "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'Z1')].REGIO",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "resellerpostalcode",
+                        "value": "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'Z1')].PSTLZ",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "resellercity",
+                        "value": "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'Z1')].ORT01",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "reseller",
+                        "value": "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'Z1')].NAME1",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "endcustomercountry",
+                        "value": "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'ZC')].LAND1",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "endcustomerstreet",
+                        "value": "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'ZC')].STRAS",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "endcustomerregion",
+                        "value": "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'ZC')].REGIO",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "endcustomerpostalcode",
+                        "value": "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'ZC')].PSTLZ",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "endcustomercity",
+                        "value": "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'ZC')].ORT01",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "endcustomer",
+                        "value": "$.*.IDOC.E1EDKA1[*][?(@.PARVW == 'ZC')].NAME1",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "mapver",
+                        "value": "'0.2.1'",
+                        "colFamily": "o"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "line_item",
+            "row": {
+                "name": "order_details",
+                "tableName": "order_details",
+                "namespace": "ea_sc_kif",
+                "colFamily": "o",
+                "rowKey": ["client", "sapon", "sapitemnum"],
+                "cols": [
+                    {
+                        "name": "client",
+                        "value": "../$.*.IDOC.EDI_DC40.MANDT",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "serial",
+                        "value": "../$.*.IDOC.EDI_DC40.SERIAL",
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "sapon",
+                        "value": "../$.*.IDOC.E1EDK01.BELNR",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "ordertype",
+                        "value": "../$.*.IDOC.E1EDK14[*][?(@.QUALF == '012')].ORGID",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "ordercreateddt",
+                        "value": "../$.*.IDOC.E1EDK03[*][?(@.IDDAT == '025')].DATUM",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "ordercreatetime",
+                        "value": "../$.*.IDOC.E1EDK03[*][?(@.IDDAT == '025')].UZEIT",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "rdd",
+                        "value": "../$.*.IDOC.E1EDK03[*][?(@.IDDAT == '002')].DATUM",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "salesorganization",
+                        "value": "../$.*.IDOC.E1EDK14[*][?(@.QUALF == '008')].ORGID",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "salesgroup",
+                        "value": "../$.*.IDOC.E1EDK14[*][?(@.QUALF == '010')].ORGID",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "distributionchannel",
+                        "value": "../$.*.IDOC.E1EDK14[*][?(@.QUALF == '007')].ORGID",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "receiveddt",
+                        "value": "../$.*.IDOC.E1EDK01.ZORD_HEADER.ZZRECV_DAT",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "dccode",
+                        "value": "../$.*.IDOC.E1EDK01.ZORD_HEADER.ZZDC_CODE",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "billingblockreasoncode",
+                        "value": "../$.*.IDOC.E1EDK01.ZORD_HEADER.FAKSK",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "deliveryblock",
+                        "value": "../$.*.IDOC.E1EDK01.LIFSK",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "compldelflag",
+                        "value": "../$.*.IDOC.E1EDK01.AUTLF",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "intgrtime",
+                        "value": "../$.*.IDOC.E1EDK01.ZORD_HEADER.ZZINTGR_TIME",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "netamountorder",
+                        "value": "../$.*.IDOC.E1EDS01[*][?(@.SUMID == '002')].SUMME",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "rtm",
+                        "value": "../$.*.IDOC.E1EDK01.ZORD_HEADER.SUBMI",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "currencyorder",
+                        "value": "../$.*.IDOC.E1EDK01.CURCY",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "usage",
+                        "value": "../$.*.IDOC.E1EDK01.ABRVW",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "usagedescr",
+                        "value": "../$.*.IDOC.E1EDK01.ABRVW_BEZ",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "orc",
+                        "value": "../$.*.IDOC.E1EDK01.AUGRU",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "salesoffice",
+                        "value": "../$.*.IDOC.E1EDK14[*][?(@.QUALF == '016')].ORGID",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "documentdt",
+                        "value": "../$.*.IDOC.E1EDK03[*][?(@.IDDAT == '012')].DATUM",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "hpquote",
+                        "value": "../$.*.IDOC.E1EDK01.ZORD_HEADER.ZZQUOTEN",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "dealid",
+                        "value": "../$.*.IDOC.E1EDK01.ZORD_HEADER.ZZDEAL_ID",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "oppidorder",
+                        "value": "../$.*.IDOC.E1EDK01.ZORD_HEADER.ZZF_OPP_ID",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "deliverypriorityheader",
+                        "value": "../$.*.IDOC.E1EDK01.ZORD_HEADER.ZZ_DEL_PRTY",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "orcdescr",
+                        "value": "../$.*.IDOC.E1EDK01.AUGRU_BEZ",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "deliveryblockdescr",
+                        "value": "../$.*.IDOC.E1EDK01.LIFSK_BEZ",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "distributionchanneldescr",
+                        "value": "../$.*.IDOC.E1EDK14[*][?(@.QUALF == '007')].ORGID",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "customerponumber",
+                        "value": "../$.*.IDOC.E1EDK02[*][?(@.QUALF == '001')].BELNR",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "customerpocreateddt",
+                        "value": "../$.*.IDOC.E1EDK02[*][?(@.QUALF == '001')].DATUM",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "customerpoitemnumber",
+                        "value": "$.E1CUREF.POSEX",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "sapitemnum",
+                        "value": "$.POSEX",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "rejectionreason",
+                        "value": "$.ABGRU",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "itemcreateddt",
+                        "value": "$.E1EDP03[*][?(@.IDDAT == '025')].DATUM",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "itemcreatetime",
+                        "value": "$.E1EDP03[*][?(@.IDDAT == '025')].UZEIT",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "orderedqty",
+                        "value": "$.MENGE",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "itemcategory",
+                        "value": "$.PSTYV",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "shippingpoint",
+                        "value": "$.VSTEL",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "plant",
+                        "value": "$.WERKS",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "hli",
+                        "value": "$.UEPOS",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "deliverygroupsap",
+                        "value": "$.GRKOR",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "route",
+                        "value": "$.ROUTE",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "routedescr",
+                        "value": "$.ROUTE_BEZ",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "productdescr",
+                        "value": "$.E1EDP19..[?(@.QUALF == '002')].KTEXT",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "materialnum",
+                        "value": "$.E1EDP19..[?(@.QUALF == '002')].IDTNR_LONG",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "productline",
+                        "value": "$.ZORD_ITEM01.SPART",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "deliverypriority",
+                        "value": "$.LPRIO",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "deliveryprioritydescr",
+                        "value": "$.LPRIO_BEZ",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "itemnetprice",
+                        "value": "$.VPREI",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "netamountitem",
+                        "value": "$.NETWR",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    { "name": "currencyitem",
+                      "value": "$.CURCY",
+                      "isDedup": true,
+                      "colFamily": "o"
+                    },
+                    {
+                        "name": "reasoncode",
+                        "value": "$.ZORD_ITEM.ZZRSN_CODE",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "atpcheckflag",
+                        "value": "if ($.ZORD_ITEM.ZZATP_FLAG) then $.ZORD_ITEM.ZZATP_FLAG else 'NULL'",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "multipledealid",
+                        "value": "$.ZORD_ITEM.ZZMDEAL_ID",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name": "oppiditem",
+                        "value": "$.ZORD_ITEM.ZZOPPID",
+                        "isDedup": true,
+                        "colFamily": "o"
+                    },
+                    {
+                        "name":  "mapver",
+                        "value": "'0.2.1'",
+                        "colFamily": "o"
+                    }
+                ]
+            },
+            "children": [
+                {
+                    "template": "line_status",
+                    "select": "$.ZORD_ITEMSTATUS"
+                },
+                {
+                    "template": "schedule",
+                    "select": "$.E1EDP20"
+                }
+            ]
+        },
+        {
+            "name": "order_details",
+            "children": [
+                {
+                    "template": "line_item",
+                    "select": "$.*.IDOC.E1EDP01"
+                },
+                {
+                    "template": "header_status",
+                    "select": "$.*.IDOC.E1EDK01.ZORD_HEADERSTATUS"
+                }
+            ]
+        },
+        {
+            "name": "orders",
+            "children": [
+                {
+                    "template": "purchase",
+                    "select": "$.*.IDOC.E1EDP01"
+                }
+            ]
+        }
+    ],
+    "sourceMap": [
+        {
+            "sourceName": "ORDERS_SERP_SOURCE_MAP",
+            "when": "( topic == 'ORDERS_SERP_hpit-ifsl' )",
+            "templates": ["orders"],
+            "idockey": ["$.*.IDOC.EDI_DC40.DOCNUM"],
+            "sortkey": [
+                "$.*.IDOC.EDI_DC40.CREDAT",
+                "$.*.IDOC.EDI_DC40.CRETIM",
+                "$.*.IDOC.EDI_DC40.DOCNUM"
+            ],
+            "idkey": [
+                "$.*.IDOC.EDI_DC40.MANDT",
+                "$.*.IDOC.E1EDK01.BELNR",
+                "$.*.IDOC.EDI_DC40.SERIAL"
+            ]
+        },
+        {
+            "sourceName": "ORDRSP_SERP_SOURCE_MAP",
+            "when": "( topic == 'ORDRSP_SERP_hpit-ifsl' )",
+            "templates": ["partner", "order_details"],
+            "idockey": ["$.*.IDOC.EDI_DC40.DOCNUM"],
+            "sortkey": [
+                "$.*.IDOC.EDI_DC40.CREDAT",
+                "$.*.IDOC.EDI_DC40.CRETIM",
+                "$.*.IDOC.EDI_DC40.DOCNUM"
+            ],
+            "idkey": [
+                "$.*.IDOC.EDI_DC40.MANDT",
+                "$.*.IDOC.E1EDK01.BELNR",
+                "$.*.IDOC.EDI_DC40.SERIAL"
+            ]
+        },
+        {
+            "sourceName": "DESADV_SERP_SOURCE_MAP",
+            "when": "( topic == 'DESADV_SERP_hpit-ifsl' )",
+            "templates": ["delivery"],
+            "idockey": ["$.*.IDOC.EDI_DC40.DOCNUM"],
+            "sortkey": [
+                "$.*.IDOC.EDI_DC40.CREDAT",
+                "$.*.IDOC.EDI_DC40.CRETIM",
+                "$.*.IDOC.EDI_DC40.DOCNUM"
+            ],
+            "idkey": [
+                "$.*.IDOC.EDI_DC40.MANDT",
+                "$.*.IDOC.E1EDK01.BELNR",
+                "$.*.IDOC.EDI_DC40.SERIAL"
+            ]
+        }
+    ]
+}

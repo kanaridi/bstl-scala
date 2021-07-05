@@ -1,0 +1,354 @@
+{
+    "client": "300",
+    "customerpocreateddt": "20190201",
+    "customerpoitemnumber": "000660",
+    "customerponumber": "Shadow_UAT_E2E03",
+    "deliverypriority": "50",
+    "distributionchannel": "00",
+    "hliserial": "20190211231609",
+    "itemcategory": "ZPSC",
+    "itemcreateddt": "20190201",
+    "itemcreatetime": "090020",
+    "materialnum": "QK735A",
+    "ordercreateddt": "20190201",
+    "ordercreatetime": "085656",
+    "orderedqty": "6.000",
+    "ordertype": "ZNST",
+    "plant": "807V",
+    "compldelflag": "X",
+    "productline": "1Y",
+    "purchase_list": [{
+            "factoryplant": "1A1E",
+            "key": "300-4520001007-00010",
+            "serial": "20190211231930",
+            "supplierpocreateddt": "20190201",
+            "supplierpoitemnum": "00010",
+            "supplierponum": "4520001007",
+            "supplierpotype": "NB",
+            "deletionindicator": "X"
+        },
+        {
+            "factoryplant": "807V",
+            "key": "300-4520001124-00010",
+            "serial": "20190211234420",
+            "supplierpocreateddt": "20190211",
+            "supplierpoitemnum": "00010",
+            "supplierponum": "4520001124",
+            "supplierpotype": "NB"
+        },
+        {
+            "factoryplant": "2C1A",
+            "key": "300-4520001124-00010",
+            "serial": "20190211234420",
+            "supplierpocreateddt": "20190211",
+            "supplierpoitemnum": "00010",
+            "supplierponum": "4520001124",
+            "supplierpotype": "UB"
+        }
+    ],
+    "rdd": "20190208",
+    "receiveddt": "2019-02-01T22:32:0",
+    "route": "BEODCZ",
+    "rtm": "INDIRECT",
+    "salesorganization": "BE00",
+    "hlikey": "7100005077000660",
+    "sapitemnum": "000660",
+    "sapon": "7100005077",
+    "schedule_list": [{
+        "plannedmaterialavaildt": "20190201",
+        "schedulelineconfirmedqty": "         0.000",
+        "schedulelinenum": "0001",
+        "serial": "20190211231609"
+    }],
+    "shippingpoint": "8070",
+    "shiptocountry": "BE",
+    "soldtopartyid": "1001957244",
+    "status_list": [{
+            "objectchangenum": "001",
+            "objectdt": "20190201",
+            "objectnumber": "VB7100005077000660",
+            "objectstatuscode": "OPN",
+            "objectstatusdescription": "Processing - Order complete",
+            "objecttime": "091105",
+            "serial": "20190211231609",
+            "statustype": "item"
+        },
+        {
+            "objectchangenum": "001",
+            "objectdt": "20190201",
+            "objectnumber": "VB7100005077000660",
+            "objectstatuscode": "DLHH",
+            "objectstatusdescription": "Blood Build",
+            "objecttime": "091105",
+            "serial": "20190211231609",
+            "statustype": "item"
+        },
+        {
+            "objectchangenum": "001",
+            "objectdt": "20190201",
+            "objectnumber": "VB7100005077000660",
+            "objectstatuscode": "PSET",
+            "objectstatusdescription": "test",
+            "objecttime": "091105",
+            "serial": "20190211231609",
+            "statustype": "item"
+        },
+        {
+            "objectchangenum": "002",
+            "objectdt": "20190201",
+            "objectinactive": "X",
+            "objectnumber": "VB7100005077000660",
+            "objectstatuscode": "OPN",
+            "objectstatusdescription": "Processing - Order complete",
+            "objecttime": "094931",
+            "serial": "20190211231609",
+            "statustype": "item"
+        },
+        {
+            "objectchangenum": "003",
+            "objectdt": "20190201",
+            "objectnumber": "VB7100005077000660",
+            "objectstatuscode": "OPN",
+            "objectstatusdescription": "Processing - Order complete",
+            "objecttime": "104402",
+            "serial": "20190211231609",
+            "statustype": "item"
+        },
+        {
+            "objectchangenum": "004",
+            "objectdt": "20190201",
+            "objectinactive": "X",
+            "objectnumber": "VB7100005077000660",
+            "objectstatuscode": "OPN",
+            "objectstatusdescription": "Processing - Order complete",
+            "objecttime": "142923",
+            "serial": "20190211231609",
+            "statustype": "item"
+        },
+        {
+            "objectchangenum": "001",
+            "objectdt": "20200201",
+            "objectnumber": "VB7100005077000660",
+            "objectstatuscode": "PROC",
+            "objectstatusdescription": "Processing - Order complete",
+            "objecttime": "142923",
+            "serial": "20200211231609",
+            "statustype": "item"
+        },
+        {
+            "objectchangenum": "001",
+            "objectdt": "20190201",
+            "objectnumber": "VB7100005077000660",
+            "objectstatuscode": "TBA",
+            "objectstatusdescription": "To Be Acknowledged internal",
+            "objecttime": "094931",
+            "serial": "20190211231609",
+            "statustype": "item"
+        },
+        {
+            "objectchangenum": "002",
+            "objectdt": "20190201",
+            "objectinactive": "X",
+            "objectnumber": "VB7100005077000660",
+            "objectstatuscode": "TBA",
+            "objectstatusdescription": "To Be Acknowledged internal",
+            "objecttime": "104402",
+            "serial": "20190211231609",
+            "statustype": "item"
+        },
+        {
+            "objectchangenum": "001",
+            "objectdt": "20190201",
+            "objectnumber": "VB7100005077000660",
+            "objectstatuscode": "RTF",
+            "objectstatusdescription": "Released to Fulfilment",
+            "objecttime": "142923",
+            "serial": "20190211231609",
+            "statustype": "item"
+        },
+        {
+            "objectchangenum": "001",
+            "objectdt": "20190201",
+            "objectnumber": "VB7100005077000000",
+            "objectstatuscode": "INC",
+            "objectstatusdescription": "Order Incomplete",
+            "objecttime": "091105",
+            "serial": "20190211231609",
+            "statustype": "header"
+        },
+        {
+            "objectchangenum": "002",
+            "objectdt": "20190201",
+            "objectinactive": "X",
+            "objectnumber": "VB7100005077000000",
+            "objectstatuscode": "INC",
+            "objectstatusdescription": "Order Incomplete",
+            "objecttime": "094931",
+            "serial": "20190211231609",
+            "statustype": "header"
+        },
+        {
+            "objectchangenum": "003",
+            "objectdt": "20200201",
+            "objectnumber": "VB7100005077000000",
+            "objectstatuscode": "INC",
+            "objectstatusdescription": "Order Incomplete",
+            "objecttime": "091105",
+            "serial": "20190211231609",
+            "statustype": "header"
+        },
+        {
+            "objectchangenum": "001",
+            "objectdt": "20190201",
+            "objectinactive": "X",
+            "objectnumber": "VB7100005077000000",
+            "objectstatuscode": "OPN",
+            "objectstatusdescription": "Processing - Order complete",
+            "objecttime": "091105",
+            "serial": "20190211231609",
+            "statustype": "header"
+        },
+        {
+            "objectchangenum": "002",
+            "objectdt": "20190201",
+            "objectnumber": "VB7100005077000000",
+            "objectstatuscode": "OPN",
+            "objectstatusdescription": "Processing - Order complete",
+            "objecttime": "104402",
+            "serial": "20190211231609",
+            "statustype": "header"
+        },
+        {
+            "objectchangenum": "001",
+            "objectdt": "20190201",
+            "objectnumber": "VB7100005077000000",
+            "objectstatuscode": "TBA",
+            "objectstatusdescription": "No Acknowledgement received",
+            "objecttime": "094931",
+            "serial": "20190211231609",
+            "statustype": "header"
+        },
+        {
+            "objectchangenum": "001",
+            "objectdt": "20190201",
+            "objectnumber": "VB7100005077000000",
+            "objectstatuscode": "BBLK",
+            "objectstatusdescription": "BloodBuild",
+            "objecttime": "094931",
+            "serial": "20190211231609",
+            "statustype": "header"
+        },
+        {
+            "objectchangenum": "002",
+            "objectinactive": "X",
+            "objectdt": "20190221",
+            "objectnumber": "VB7100005077000000",
+            "objectstatuscode": "BBLK",
+            "objectstatusdescription": "BloodBuild",
+            "objecttime": "104402",
+            "serial": "20190211231609",
+            "statustype": "header"
+        },
+        {
+            "objectchangenum": "003",
+            "objectdt": "20190301",
+            "objectnumber": "VB7100005077000000",
+            "objectstatuscode": "BBLK",
+            "objectstatusdescription": "BloodBuild",
+            "objecttime": "999999",
+            "serial": "20190211231609",
+            "statustype": "header"
+        },
+        {
+            "objectchangenum": "002",
+            "objectdt": "20190201",
+            "objectinactive": "X",
+            "objectnumber": "VB7100005077000000",
+            "objectstatuscode": "TBA",
+            "objectstatusdescription": "No Acknowledgement received",
+            "objecttime": "104402",
+            "serial": "20190211231609",
+            "statustype": "header"
+        },
+        {
+            "objectchangenum": "001",
+            "objectdt": "20190201",
+            "objectnumber": "VB7100005077000000",
+            "objectstatuscode": "CID0",
+            "objectstatusdescription": "Missing CID",
+            "objecttime": "094931",
+            "serial": "20190211231609",
+            "statustype": "header"
+        },
+        {
+            "objectchangenum": "002",
+            "objectdt": "20190201",
+            "objectinactive": "X",
+            "objectnumber": "VB7100005077000000",
+            "objectstatuscode": "CID0",
+            "objectstatusdescription": "Missing CID",
+            "objecttime": "104402",
+            "serial": "20190211231609",
+            "statustype": "header"
+        },
+        {
+            "objectchangenum": "001",
+            "objectdt": "20190201",
+            "objectnumber": "VB7100005077000000",
+            "objectstatuscode": "CIDF",
+            "objectstatusdescription": "Factory CID Received/Review in",
+            "objecttime": "094931",
+            "serial": "20190211231609",
+            "statustype": "header"
+        },
+        {
+            "objectchangenum": "002",
+            "objectdt": "20190201",
+            "objectinactive": "X",
+            "objectnumber": "VB7100005077000000",
+            "objectstatuscode": "CIDF",
+            "objectstatusdescription": "Factory CID Received/Review in",
+            "objecttime": "104402",
+            "serial": "20190211231609",
+            "statustype": "header"
+        },
+        {
+            "objectchangenum": "001",
+            "objectdt": "20190201",
+            "objectnumber": "VB7100005077000000",
+            "objectstatuscode": "CIDI",
+            "objectstatusdescription": "Integration Center Verificatio",
+            "objecttime": "094931",
+            "serial": "20190211231609",
+            "statustype": "header"
+        },
+        {
+            "objectchangenum": "002",
+            "objectdt": "20190201",
+            "objectinactive": "X",
+            "objectnumber": "VB7100005077000000",
+            "objectstatuscode": "CIDI",
+            "objectstatusdescription": "Integration Center Verificatio",
+            "objecttime": "104402",
+            "serial": "20190211231609",
+            "statustype": "header"
+        }
+    ],
+    "atpcheck_list": [{
+            "atpcheckflag": "X",
+            "serial": "20190412999"
+        },
+        {
+            "atpcheckflag": "A",
+            "serial": "20190413999"
+        },
+        {
+            "atpcheckflag": "B",
+            "serial": "2019041400"
+        },
+        {
+            "atpcheckflag": "A",
+            "serial": "20190515000"
+        }
+    ]
+}
