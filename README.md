@@ -1,11 +1,12 @@
-# bstl-scala-preview
+# bstl-scala
 
+A platform for assembling and running pipelined sequences of spark sql operations.
+
+## Building
 
 -   Your system should have Scala installed
 -   For build of project you should use SBT
 -   Details about installing SBT can be found [here](https://www.scala-sbt.org/1.0/docs/Installing-sbt-on-Linux.html 'here')
-
-# Build
 
 SBT has several steps just like Maven:
 
